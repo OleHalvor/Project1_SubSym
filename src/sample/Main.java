@@ -2,35 +2,38 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import java.util.Random;
 
-import java.util.concurrent.CountDownLatch;
 
 public class Main extends Application {
 
+    private static final int number_of_boids = 20;
+    final Circle[] boids = new Circle[number_of_boids];
+    private final Random random = new Random();
+
     @Override
     public void start(final Stage primaryStage) {
-        final Circle circle = new Circle(150, Color.web("Black", 0.05));
-        final Group root = new Group();
-        root.getChildren().add(circle);
-        Scene scene = new Scene(root, 800, 600, Color.WHITE);
+
+        Group root = new Group();
+        Scene scene = new Scene(root, 800, 800, Color.WHITE);
+
+        for (int i=0; i<number_of_boids; i++) {
+            boids[i] = new Circle(random.nextDouble()*scene.getWidth(),random.nextDouble()*scene.getHeight(),25,Color.web("Black", 1));
+            root.getChildren().add(boids[i]);
+        }
+
         primaryStage.setScene(scene);
         primaryStage.show();
 
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                circle.setTranslateX(circle.getTranslateX()+1);
+                //Her skjer animering
             }
         }.start();
     }
