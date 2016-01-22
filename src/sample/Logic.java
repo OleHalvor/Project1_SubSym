@@ -6,6 +6,10 @@ package sample;
 public class Logic {
 
     private static Boid[] boids;
+    private int weight1;
+    private int weight2;
+    private int weight3;
+
 
     //TODO: Generate boids
     //TODO: Update boids

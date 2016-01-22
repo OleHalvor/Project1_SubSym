@@ -18,7 +18,7 @@ public class Boid {
         this.alive = true;
     }
 
-    public void update_position(Boid[] boids){
+    public void update_position(Boid[] boids, int weight1, int weight2, int wight3){
         //regel 1
         //regel 2 ++
     }
