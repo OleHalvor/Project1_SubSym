@@ -11,49 +11,32 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.util.concurrent.CountDownLatch;
 
 public class Main extends Application {
 
+    @Override
+    public void start(final Stage primaryStage) {
+        final Circle circle = new Circle(150, Color.web("Black", 0.05));
+        final Group root = new Group();
+        root.getChildren().add(circle);
+        Scene scene = new Scene(root, 800, 600, Color.WHITE);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                circle.setTranslateX(circle.getTranslateX()+1);
+            }
+        }.start();
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
-
-    GraphicsContext gc;
-    Canvas canvas;
-
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Drawing Operations Test");
-        Group root = new Group();
-        canvas = new Canvas(300, 250);
-        gc = canvas.getGraphicsContext2D();
-        drawShapes(gc);
-        root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-
-
-        Update update = new Update();
-        update.setDaemon(true);
-        System.out.println("Starting background task...");
-        update.start();
-
-    }
-
-    public void repaint(){
-
-    }
-
-    private void drawShapes(GraphicsContext gc) {
-        gc.setFill(Color.GREEN);
-        gc.setStroke(Color.BLUE);
-        gc.setLineWidth(5);
-        gc.fillOval(Values.getX(), Values.getY(), 30, 30);
-    }
-
 
 }
