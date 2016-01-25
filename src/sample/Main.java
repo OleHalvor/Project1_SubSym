@@ -79,7 +79,7 @@ public class Main extends Application {
             int w = (int) width;
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
-            boids[i] = new Boid(w,h,5,10);
+            boids[i] = new Boid(w/2,h/2,5,10);
         }
 
         for (int i=0; i<nBoids; i++) {
