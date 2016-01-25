@@ -21,5 +21,27 @@ public class Boid {
     public void update_position(Boid[] boids, int weight1, int weight2, int wight3){
         //regel 1
         //regel 2 ++
+        /*
+        vector centreOfMass = 0;
+        vector c = 0;
+        vector pvj = 0;
+        for (Boid boid : boids){
+            centreOfMass += boid.position
+            //
+            if (abs(boid.position - this.position) > 100){
+                c = c - (boid.position - this.position)
+            }
+            //
+            pvj += boid.velocity
+
+        }
+        centreOfMass = centreOfMass/len(boids)-1
+        pvj = pvj / len(boids)-1
+        pvj = (pvj - bj.velocity) / 8
+
+        this.velocity = velcity + (centreOfMass*weight1) + (c*weight2) + (pvj*weight3)
+        this.position = position + velocity
+
+         */
     }
 }
