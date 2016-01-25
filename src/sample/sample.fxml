@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
             <Button mnemonicParsing="false" text="Stop" />
-            <Button mnemonicParsing="false" text="Start" />
+            <Button fx:id="startBtn" mnemonicParsing="false" text="Start" />
             <Button mnemonicParsing="false" text="Reset" />
-            <Label text="nBoids" />
-            <Slider showTickLabels="true" showTickMarks="true" />
+            <Label fx:id="nBoids" text="nBoids" />
+            <Slider fx:id="nBoidsSlider" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
         </buttons>
       </ButtonBar>
    </top>
