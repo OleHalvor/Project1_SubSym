@@ -27,9 +27,9 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private int numberOfBoids = 20;
 
-    private ObservableList<Boid2> boidData = FXCollections.observableArrayList();
+    private ObservableList<Boid> boidData = FXCollections.observableArrayList();
 
-    public ObservableList<Boid2> getPersonData() {
+    public ObservableList<Boid> getPersonData() {
         return boidData;
     }
 
