@@ -44,4 +44,12 @@ public class Boid {
 
          */
     }
+
+    public int getx(){return x;}
+    public int gety(){return y;}
+    public int getdir(){return dir;}
+    public double getvelocity(){return velocity;}
+
+    public void setx(int x){this.x=x;}
+    public void sety(int y){this.y=y;}
 }
