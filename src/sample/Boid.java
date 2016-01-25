@@ -22,4 +22,9 @@ public class Boid {
         //regel 1
         //regel 2 ++
     }
+
+    public int getx(){return x;}
+    public int gety(){return y;}
+    public int getdir(){return dir;}
+    public double getvelocity(){return velocity;}
 }

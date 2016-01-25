@@ -21,10 +21,10 @@ public class Main extends Application {
 
 
 
-
+    private Circle[] boidsCircle;
+    private Boid[] boids;
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private Circle[] boids;
     private int numberOfBoids = 20;
 
     private ObservableList<Boid2> boidData = FXCollections.observableArrayList();
@@ -71,12 +71,21 @@ public class Main extends Application {
     }
 
     public void startSim(int nBoids){
-        final Circle[] boids = new Circle[nBoids];
+        boidsCircle = new Circle[nBoids];
+        boids = new Boid[nBoids];
         final Random random = new Random();
 
         for (int i=0; i<nBoids; i++) {
-            boids[i] = new Circle(random.nextDouble()*boidWindow.getWidth(),random.nextDouble()*boidWindow.getHeight(),25,Color.web("Black", 1));
-            boidWindow.getChildren().add(boids[i]);
+            double width = random.nextDouble()*boidWindow.getWidth();
+            int w = (int) width;
+            double height = random.nextDouble()*boidWindow.getHeight();
+            int h = (int) height;
+            boids[i] = new Boid(w,h,5,10);
+        }
+
+        for (int i=0; i<nBoids; i++) {
+            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),10,Color.web("Black", 1));
+            boidWindow.getChildren().add(boidsCircle[i]);
         }
 
     }
