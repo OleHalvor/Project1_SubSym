@@ -22,10 +22,14 @@ public class Main extends Application {
 
 
     private Circle[] boidsCircle;
-    private Boid[] boids;
+    private static Boid[] boids;
     private Stage primaryStage;
     private BorderPane rootLayout;
     private int numberOfBoids = 20;
+
+    public static Boid[] getBoids(){
+        return boids;
+    }
 
     private ObservableList<Boid> boidData = FXCollections.observableArrayList();
 
@@ -59,12 +63,7 @@ public class Main extends Application {
         // Set person overview into the center of root layout.
         rootLayout.setCenter(boidWindow);
 
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                //Her skjer animering
-            }
-        }.start();
+
 
         //Circle circle = new Circle(50,50,25,Color.web("Black", 1));
         //boidWindow.getChildren().add(circle);
@@ -87,6 +86,22 @@ public class Main extends Application {
             boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),10,Color.web("Black", 1));
             boidWindow.getChildren().add(boidsCircle[i]);
         }
+
+        Logic logic = new Logic();
+        logic.setDaemon(true);
+        System.out.println("Starting background task...");
+        logic.start();
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                //Her skjer animering
+                for (int i=0; i<boids.length; i++){
+                    boidsCircle[i].setTranslateX(boids[i].getx());
+                    boidsCircle[i].setTranslateY(boids[i].gety());
+                }
+            }
+        }.start();
 
     }
 
