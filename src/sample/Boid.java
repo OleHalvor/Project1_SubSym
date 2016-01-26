@@ -20,6 +20,7 @@ public class Boid {
         this.alive = true;
     }
 
+    /* --  Start Boid Rules  -- */
     public ArrayList<Double> rule1(Boid[] boids){
         double x = 0;
         double y = 0;
@@ -65,7 +66,29 @@ public class Boid {
         return vector;
     }
 
+    public ArrayList<Double> rule3(Boid[] boids){
+        double x = 0;
+        double y = 0;
+        for (Boid b : boids) {
+            if (!b.equals(this)) {
+                x = x + b.getvelocityX();
+                y = y + b.getvelocityY();
+            }
+        }//End forloop
+        x = x / (boids.length - 1);
+        y = y / (boids.length - 1);
 
+        x = (x - this.getvelocityX()) / 8;
+        y = (y - this.getvelocityY()) / 8;
+
+        ArrayList<Double> vector = new ArrayList<Double>(2);
+        vector.add(x);
+        vector.add(y);
+
+        return vector;
+    }
+    /* --  End Boid Rules  -- */
+    /*
     public void update_position(Boid[] boids, int weight1, int weight2, int weight3) {
         //regel 1
         //regel 2 ++
@@ -73,7 +96,7 @@ public class Boid {
         List c = new ArrayList<Double>(2);
         List pvj = new ArrayList<Double>(2);
         //
-    }
+    }*/
 
     public int getx(){return x;}
     public int gety(){return y;}
