@@ -24,7 +24,6 @@ public class Main extends Application {
     private Circle[] boidsCircle;
     private static Boid[] boids;
     private BorderPane rootLayout;
-    private int numberOfBoids = 20;
 
     public static Boid[] getBoids(){
         return boids;
@@ -73,7 +72,7 @@ public class Main extends Application {
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
             //boids[i] = new Boid(w,h,5,10);
-            boids[i] = new Boid(0,0,5,1,1);
+            boids[i] = new Boid(0,0,0,0,0);
         }
 
         for (int i=0; i<nBoids; i++) {
@@ -88,8 +87,8 @@ public class Main extends Application {
 
         for (int i=0; i<boids.length; i++){
 
-            boids[i].setX(random.nextInt(600));
-            boids[i].setY(random.nextInt(400));
+            boids[i].setX(random.nextInt((int)boidWindow.getWidth()));
+            boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
         final int w = (int) boidWindow.getWidth();

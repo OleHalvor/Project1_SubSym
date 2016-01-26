@@ -54,7 +54,6 @@ public class Controller {
                 resetBtn.setDisable(false);
                 stopBtn.setDisable(false);
                 Main.startSim((Integer.parseInt(nBoidsField.getText())));
-
             }
         });
         stopBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -62,6 +61,7 @@ public class Controller {
             public void handle(ActionEvent event) {
                 startBtn.setDisable(false);
                 resetBtn.setDisable(true);
+                stopBtn.setDisable(true);
                 Main.stopSim();
 
             }
