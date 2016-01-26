@@ -118,16 +118,16 @@ public class Main extends Application {
                 //Her skjer animering
                 for (int i=0; i<boids.length; i++){
                     if (boids[i].getx()>w){
-                        boids[i].setX(boids[i].getx()-w);
+                        boids[i].setX(0);
                     }
                     else if (boids[i].getx()<0) {
-                        boids[i].setX(boids[i].getx() + w);
+                        boids[i].setX(w);
                     }
                     if (boids[i].gety()>h){
-                        boids[i].setY(boids[i].gety()-h);
+                        boids[i].setY(0);
                     }
                     else if (boids[i].gety()<0){
-                        boids[i].setY(boids[i].gety()+h);
+                        boids[i].setY(h);
                     }
                     System.out.println("x, y: "+boids[i].getx()+" "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());

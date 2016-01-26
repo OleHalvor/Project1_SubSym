@@ -94,6 +94,7 @@ public class Boid {
         ArrayList<Double> rule2 = rule2(boids);
         ArrayList<Double> rule3 = rule3(boids);
 
+
         this.setVelocityX(this.getvelocityX()+rule1.get(0)+rule2.get(0)+rule3.get(0));
         this.setVelocityY(this.getvelocityY()+rule1.get(1)+rule2.get(1)+rule3.get(1));
 
