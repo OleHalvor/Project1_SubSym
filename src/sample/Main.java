@@ -30,21 +30,6 @@ public class Main extends Application {
         return boids;
     }
 
-    private ObservableList<Boid> boidData = FXCollections.observableArrayList();
-
-    public ObservableList<Boid> getPersonData() {
-        return boidData;
-    }
-
-    public int getNBoids(){
-        return numberOfBoids;
-    }
-
-    public void setNBoids(int nBoids){
-        this.numberOfBoids = nBoids;
-    }
-
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
