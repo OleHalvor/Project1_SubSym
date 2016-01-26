@@ -72,7 +72,9 @@ public class Main extends Application {
     }
 
     public void stopSim(){
-
+        for (int i=0; i<boidsCircle.length; i++){
+            boidsCircle[i].setRadius(0.01);
+        }
     }
 
     public void startSim(int nBoids){
