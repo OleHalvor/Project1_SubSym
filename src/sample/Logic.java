@@ -28,7 +28,7 @@ public class Logic extends Thread {
         while (true) {
             for (int i = 0; i < boids.length; i++) {
 
-               //boids[i].executeRules(boids);
+               boids[i].executeRules(boids);
 
 
                 /*
