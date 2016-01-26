@@ -5,10 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 
 /**
  * Created by Olli on 25.01.2016.
@@ -16,9 +13,9 @@ import javafx.scene.control.SpinnerValueFactory;
 public class Controller {
 
     @FXML
-    private Label nBoids;
+    private Button resetBtn;
     @FXML
-    private Slider nBoidsSlider;
+    private TextField nBoidsField;
     @FXML
     private Button startBtn;
 
@@ -40,19 +37,16 @@ public class Controller {
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
-        nBoidsSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                nBoids.setText(Double.toString(nBoidsSlider.getValue()));
-            }
-        });
-        nBoidsSlider.setValue(20);
+
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Main.startSim(((int) nBoidsSlider.getValue()));
+                startBtn.setDisable(true);
+                Main.startSim((Integer.parseInt(nBoidsField.getText())));
+
             }
         });
+
 
     }
 

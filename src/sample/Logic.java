@@ -27,8 +27,8 @@ public class Logic extends Thread {
         Boid[] boids = Main.getBoids();
         while(true){
             for(int i=0; i<boids.length; i++) {
-                boids[i].setx(boids[i].getx() + random.nextInt(10) - 4);
-                boids[i].sety(boids[i].gety() + random.nextInt(10) - 4);
+                boids[i].setx(boids[i].getx() + random.nextInt(3));
+                boids[i].sety(boids[i].gety() + random.nextInt(2));
             }
                 try {
                     Thread.sleep(10);

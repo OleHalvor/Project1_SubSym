@@ -47,6 +47,8 @@ public class Main extends Application {
         this.numberOfBoids = nBoids;
     }
 
+
+
     private Pane boidWindow;
     @Override
     public void start(Stage primaryStage) {
@@ -99,22 +101,24 @@ public class Main extends Application {
             boids[i].sety(random.nextInt(400));
         }
 
+        final int w = (int) boidWindow.getWidth();
+        final int h = (int) boidWindow.getHeight();
         new AnimationTimer() {
             @Override
             public void handle(long now) {
                 //Her skjer animering
                 for (int i=0; i<boids.length; i++){
-                    if (boids[i].getx()>600){
-                        boids[i].setx(boids[i].getx()-600);
+                    if (boids[i].getx()>w){
+                        boids[i].setx(boids[i].getx()-w);
                     }
                     else if (boids[i].getx()<0) {
-                        boids[i].setx(boids[i].getx() + 600);
+                        boids[i].setx(boids[i].getx() + w);
                     }
-                    if (boids[i].gety()>400){
-                        boids[i].sety(boids[i].gety()-400);
+                    if (boids[i].gety()>h){
+                        boids[i].sety(boids[i].gety()-h);
                     }
                     else if (boids[i].gety()<0){
-                        boids[i].sety(boids[i].gety()+400);
+                        boids[i].sety(boids[i].gety()+h);
                     }
                     System.out.println("x, y: "+boids[i].getx()+" "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());

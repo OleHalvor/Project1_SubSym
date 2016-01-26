@@ -4,22 +4,34 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
             <Button mnemonicParsing="false" text="Stop" />
             <Button fx:id="startBtn" mnemonicParsing="false" text="Start" />
-            <Button mnemonicParsing="false" text="Reset" />
-            <Label fx:id="nBoids" text="nBoids" />
-            <Slider fx:id="nBoidsSlider" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" />
+            <TextField fx:id="nBoidsField" promptText="5" text="5" />
         </buttons>
       </ButtonBar>
    </top>
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Weight" />
+            <Slider />
+            <Label text="Weight" />
+            <Slider />
+            <Label text="Weight" />
+            <Slider />
+         </children></VBox>
+   </left>
 </BorderPane>
