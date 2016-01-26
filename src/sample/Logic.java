@@ -21,14 +21,14 @@ public class Logic extends Thread {
 
     }
 
-    public static void updateBoids(){
+    public static void updateBoids() {
         // DUMMY METHOD. This should be the method that runs the "rules" on all boids
 
         Boid[] boids = Main.getBoids();
-        while(true){
-            for(int i=0; i<boids.length; i++) {
+        while (true) {
+            for (int i = 0; i < boids.length; i++) {
 
-                boids[i].executeRules(boids);
+               //boids[i].executeRules(boids);
 
 
                 /*
@@ -41,6 +41,7 @@ public class Logic extends Thread {
                     e.printStackTrace();
                 }*/
 
+            }
         }
     }
     //TODO: Generate boids
