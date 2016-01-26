@@ -71,15 +71,15 @@ public class Boid {
         double y = 0;
         for (Boid b : boids) {
             if (!b.equals(this)) {
-                x = x + b.getvelocityX();
-                y = y + b.getvelocityY();
+                x = x + b.getVelocityX();
+                y = y + b.getVelocityY();
             }
         }//End forloop
         x = x / (boids.length - 1);
         y = y / (boids.length - 1);
 
-        x = (x - this.getvelocityX()) / 8;
-        y = (y - this.getvelocityY()) / 8;
+        x = (x - this.getVelocityX()) / 8;
+        y = (y - this.getVelocityY()) / 8;
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
         vector.add(x);
@@ -89,27 +89,35 @@ public class Boid {
     }
     /* --  End Boid Rules  -- */
 
-    public void executeRules(Boid[] boids){
+    /* -- This method executes all the rules of a boid -- */
+    public void executeRules(Boid[] boids, int w1, int w2, int w3){
         ArrayList<Double> rule1 = rule1(boids);
         ArrayList<Double> rule2 = rule2(boids);
         ArrayList<Double> rule3 = rule3(boids);
 
+        this.setVelocityX(this.getVelocityX()+(rule1.get(0)*w1)+(rule2.get(0)*w2)+(rule3.get(0)*w3));
+        this.setVelocityY(this.getVelocityY()+(rule1.get(1)*w1)+(rule2.get(1)*w2)+(rule3.get(1)*w3));
 
-        this.setVelocityX(this.getvelocityX()+rule1.get(0)+rule2.get(0)+rule3.get(0));
-        this.setVelocityY(this.getvelocityY()+rule1.get(1)+rule2.get(1)+rule3.get(1));
+        double vLim = 10;
+        double Velocity = Math.sqrt(Math.pow(this.getVelocityX(),2)+Math.pow(this.getVelocityY(),2));
+        if (Velocity > vLim){
+            this.setVelocityX((this.getVelocityX()/Velocity)*vLim);
+            this.setVelocityY((this.getVelocityY()/Velocity)*vLim);
+        }
 
-        this.setX(this.getx()+(int)this.getvelocityX());
-        this.setY(this.gety()+(int)this.getvelocityY());
+        this.setX(this.getx()+(int)this.getVelocityX());
+        this.setY(this.gety()+(int)this.getVelocityY());
     }
 
+    /* -- Getters and Setters -- */
     public int getx(){return x;}
     public int gety(){return y;}
     public void setX(int x) {this.x = x;}
     public void setY(int y) {this.y = y;}
     public int getdir(){return dir;}
 
-    public double getvelocityX(){return velocityX;}
-    public double getvelocityY(){return velocityY;}
+    public double getVelocityX(){return velocityX;}
+    public double getVelocityY(){return velocityY;}
     public void setVelocityX(double velocityX) {this.velocityX = velocityX;}
     public void setVelocityY(double velocityY) {this.velocityY = velocityY;}
 }
