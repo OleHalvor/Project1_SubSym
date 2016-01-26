@@ -19,11 +19,12 @@ import java.util.Random;
 
 public class Main extends Application {
 
+    private Stage primaryStage;
+    private Pane paneOne;
 
 
     private Circle[] boidsCircle;
     private static Boid[] boids;
-    private Stage primaryStage;
     private BorderPane rootLayout;
     private int numberOfBoids = 20;
 
@@ -97,8 +98,8 @@ public class Main extends Application {
             public void handle(long now) {
                 //Her skjer animering
                 for (int i=0; i<boids.length; i++){
-                    boidsCircle[i].setTranslateX(boids[i].getx());
-                    boidsCircle[i].setTranslateY(boids[i].gety());
+                    boidsCircle[i].setLayoutX(boids[i].getx());
+                    boidsCircle[i].setLayoutY(boids[i].gety());
                 }
             }
         }.start();

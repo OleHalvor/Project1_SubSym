@@ -1,9 +1,14 @@
 package sample;
 
+
+import java.util.Random;
+
 /**
  * Created by Ole on 22.01.2016.
  */
 public class Logic extends Thread {
+
+    final static Random random = new Random();
 
     private static Boid[] boids;
     private static int weight1;
@@ -22,11 +27,11 @@ public class Logic extends Thread {
         Boid[] boids = Main.getBoids();
         while(true){
             for(int i=0; i<boids.length; i++) {
-                boids[i].setx(boids[i].getx() + 5);
-                boids[i].sety(boids[i].gety() + 5);
+                boids[i].setx(boids[i].getx() + random.nextInt(2));
+                boids[i].sety(boids[i].gety() + random.nextInt(3));
             }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
