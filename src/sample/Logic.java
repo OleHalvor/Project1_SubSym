@@ -30,17 +30,11 @@ public class Logic extends Thread {
 
                boids[i].executeRules(boids);
 
-
-                /*
-                boids[i].setx(boids[i].getx() + random.nextInt(3));
-                boids[i].sety(boids[i].gety() + random.nextInt(2));
             }
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
-
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
