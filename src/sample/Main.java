@@ -80,7 +80,8 @@ public class Main extends Application {
             int w = (int) width;
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
-            boids[i] = new Boid(w/2,h/2,5,10);
+            //boids[i] = new Boid(w,h,5,10);
+            boids[i] = new Boid(0,0,5,10);
         }
 
         for (int i=0; i<nBoids; i++) {
@@ -93,13 +94,35 @@ public class Main extends Application {
         System.out.println("Starting background task...");
         logic.start();
 
+        for (int i=0; i<boids.length; i++){
+            boids[i].setx(random.nextInt(600));
+            boids[i].sety(random.nextInt(400));
+        }
+
         new AnimationTimer() {
             @Override
             public void handle(long now) {
                 //Her skjer animering
                 for (int i=0; i<boids.length; i++){
+                    if (boids[i].getx()>600){
+                        boids[i].setx(boids[i].getx()-600);
+                    }
+                    else if (boids[i].getx()<0) {
+                        boids[i].setx(boids[i].getx() + 600);
+                    }
+                    if (boids[i].gety()>400){
+                        boids[i].sety(boids[i].gety()-400);
+                    }
+                    else if (boids[i].gety()<0){
+                        boids[i].sety(boids[i].gety()+400);
+                    }
+                    System.out.println("x, y: "+boids[i].getx()+" "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
+
+
+
+
                 }
             }
         }.start();
