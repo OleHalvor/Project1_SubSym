@@ -19,7 +19,8 @@ public class Boid {
         this.velocityY = velocityY;
         this.alive = true;
     }
-    public ArrayList<Double> rule1(Boid[] boids, int weight1){
+
+    public ArrayList<Double> rule1(Boid[] boids){
         double x = 0;
         double y = 0;
 
@@ -35,6 +36,27 @@ public class Boid {
 
         x = (x - this.getx())/100;
         y = (y - this.gety())/100;
+
+        ArrayList<Double> vector = new ArrayList<Double>(2);
+        vector.add(x);
+        vector.add(y);
+
+        return vector;
+    }
+
+    public ArrayList<Double> rule2(Boid[] boids){
+        double x = 0;
+        double y = 0;
+        for (Boid b : boids){
+            if (!b.equals(this)){
+                int diffX = Math.abs(b.getx()-this.getx());
+                int diffY = Math.abs(b.gety()-this.gety());
+                if (Math.sqrt(Math.pow(diffX, 2)+Math.pow(diffY,2)) < 100){
+                    x = x - (b.getx() - this.getx());
+                    y = y - (b.getx() - this.gety());
+                }
+            }
+        }//End Forloop
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
         vector.add(x);
