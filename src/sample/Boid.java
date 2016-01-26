@@ -90,15 +90,25 @@ public class Boid {
     /* --  End Boid Rules  -- */
 
     public void executeRules(Boid[] boids){
-        
+        ArrayList<Double> rule1 = rule1(boids);
+        ArrayList<Double> rule2 = rule2(boids);
+        ArrayList<Double> rule3 = rule3(boids);
+
+        this.setVelocityX(this.getvelocityX()+rule1.get(0)+rule2.get(0)+rule3.get(0));
+        this.setVelocityY(this.getvelocityY()+rule1.get(1)+rule2.get(1)+rule3.get(1));
+
+        this.setX(this.getx()+(int)this.getvelocityX());
+        this.setY(this.gety()+(int)this.getvelocityY());
     }
 
     public int getx(){return x;}
     public int gety(){return y;}
+    public void setX(int x) {this.x = x;}
+    public void setY(int y) {this.y = y;}
     public int getdir(){return dir;}
+
     public double getvelocityX(){return velocityX;}
     public double getvelocityY(){return velocityY;}
-
-    public void setx(int x){this.x=x;}
-    public void sety(int y){this.y=y;}
+    public void setVelocityX(double velocityX) {this.velocityX = velocityX;}
+    public void setVelocityY(double velocityY) {this.velocityY = velocityY;}
 }
