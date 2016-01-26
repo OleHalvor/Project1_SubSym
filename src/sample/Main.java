@@ -60,16 +60,24 @@ public class Main extends Application {
         boidWindow = null;
         try {
             boidWindow = (Pane) loader.load();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         // Set person overview into the center of root layout.
         rootLayout.setCenter(boidWindow);
+        boidWindow.setId("bw");
+
+
 
 
 
         //Circle circle = new Circle(50,50,25,Color.web("Black", 1));
         //boidWindow.getChildren().add(circle);
+    }
+
+    public void stopSim(){
+
     }
 
     public void startSim(int nBoids){
@@ -83,7 +91,7 @@ public class Main extends Application {
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
             //boids[i] = new Boid(w,h,5,10);
-            boids[i] = new Boid(0,0,5,10);
+            boids[i] = new Boid(0,0,5,1,1);
         }
 
         for (int i=0; i<nBoids; i++) {
@@ -150,6 +158,9 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add("sample/styl.css");
+
+
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {

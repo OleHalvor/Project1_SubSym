@@ -46,6 +46,14 @@ public class Controller {
 
             }
         });
+        resetBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startBtn.setDisable(false);
+                Main.stopSim();
+
+            }
+        });
 
 
     }
