@@ -21,7 +21,7 @@ public class Boid {
     }
 
     /* --  Start Boid Rules  -- */
-    public ArrayList<Double> rule1(Boid[] boids){
+    private ArrayList<Double> rule1(Boid[] boids){
         double x = 0;
         double y = 0;
 
@@ -45,7 +45,7 @@ public class Boid {
         return vector;
     }
 
-    public ArrayList<Double> rule2(Boid[] boids){
+    private ArrayList<Double> rule2(Boid[] boids){
         double x = 0;
         double y = 0;
         for (Boid b : boids){
@@ -66,7 +66,7 @@ public class Boid {
         return vector;
     }
 
-    public ArrayList<Double> rule3(Boid[] boids){
+    private ArrayList<Double> rule3(Boid[] boids){
         double x = 0;
         double y = 0;
         for (Boid b : boids) {
@@ -88,15 +88,10 @@ public class Boid {
         return vector;
     }
     /* --  End Boid Rules  -- */
-    /*
-    public void update_position(Boid[] boids, int weight1, int weight2, int weight3) {
-        //regel 1
-        //regel 2 ++
-        List centreOfMAss = new ArrayList<Double>(2);
-        List c = new ArrayList<Double>(2);
-        List pvj = new ArrayList<Double>(2);
-        //
-    }*/
+
+    public void executeRules(Boid[] boids){
+        
+    }
 
     public int getx(){return x;}
     public int gety(){return y;}
