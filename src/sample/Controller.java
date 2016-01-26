@@ -13,6 +13,12 @@ import javafx.scene.control.*;
 public class Controller {
 
     @FXML
+    private Slider sliderWeight1;
+    @FXML
+    private Slider sliderWeight2;
+    @FXML
+    private Slider sliderWeight3;
+    @FXML
     private Button resetBtn;
     @FXML
     private TextField nBoidsField;
@@ -52,6 +58,27 @@ public class Controller {
                 startBtn.setDisable(false);
                 Main.stopSim();
 
+            }
+        });
+        sliderWeight1.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Logic.setWeight1((int)sliderWeight1.getValue());
+                System.out.println("weight 1 changed");
+            }
+        });
+        sliderWeight2.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Logic.setWeight2((int)sliderWeight2.getValue());
+                System.out.println("weight 2 changed");
+            }
+        });
+        sliderWeight3.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Logic.setWeight3((int)sliderWeight3.getValue());
+                System.out.println("weight 3 changed");
             }
         });
 

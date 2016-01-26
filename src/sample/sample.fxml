@@ -26,12 +26,12 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Weight" />
-            <Slider />
-            <Label text="Weight" />
-            <Slider />
-            <Label text="Weight" />
-            <Slider />
+            <Label text="Weight1" />
+            <Slider fx:id="sliderWeight1" />
+            <Label text="Weight2" />
+            <Slider fx:id="sliderWeight2" />
+            <Label text="Weight3" />
+            <Slider fx:id="sliderWeight3" />
          </children></VBox>
    </left>
 </BorderPane>

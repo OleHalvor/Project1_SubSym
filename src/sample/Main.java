@@ -20,9 +20,7 @@ import java.util.Random;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private Pane paneOne;
-
-
+    private Pane boidWindow;
     private Circle[] boidsCircle;
     private static Boid[] boids;
     private BorderPane rootLayout;
@@ -42,14 +40,11 @@ public class Main extends Application {
         return numberOfBoids;
     }
 
-
     public void setNBoids(int nBoids){
         this.numberOfBoids = nBoids;
     }
 
 
-
-    private Pane boidWindow;
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -129,17 +124,11 @@ public class Main extends Application {
                     else if (boids[i].gety()<0){
                         boids[i].setY(h);
                     }
-                    System.out.println("x, y: "+boids[i].getx()+" "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
-
-
-
-
                 }
             }
         }.start();
-
     }
 
     /**

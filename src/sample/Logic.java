@@ -32,12 +32,25 @@ public class Logic extends Thread {
 
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    public static void setWeight1(int w){
+        weight1 = w;
+    }
+
+    public static void setWeight2(int w){
+        weight2 = w;
+    }
+
+    public static void setWeight3(int w){
+        weight3 = w;
+    }
+
     //TODO: Generate boids
     //TODO: Update boids
     //TODO: Get method for boid positions
