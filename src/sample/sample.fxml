@@ -13,7 +13,7 @@
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-            <Button mnemonicParsing="false" text="Stop" />
+            <Button fx:id="stopBtn" mnemonicParsing="false" text="Stop" />
             <Button fx:id="startBtn" mnemonicParsing="false" text="Start" />
             <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" />
             <TextField fx:id="nBoidsField" promptText="5" text="5" />

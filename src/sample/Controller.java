@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 public class Controller {
 
     @FXML
+    private Button stopBtn;
+    @FXML
     private Slider sliderWeight1;
     @FXML
     private Slider sliderWeight2;
@@ -43,12 +45,24 @@ public class Controller {
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
-
+        resetBtn.setDisable(true);
+        stopBtn.setDisable(true);
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 startBtn.setDisable(true);
+                resetBtn.setDisable(false);
+                stopBtn.setDisable(false);
                 Main.startSim((Integer.parseInt(nBoidsField.getText())));
+
+            }
+        });
+        stopBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startBtn.setDisable(false);
+                resetBtn.setDisable(true);
+                Main.stopSim();
 
             }
         });
