@@ -90,7 +90,7 @@ public class Main extends Application {
         }
 
         for (int i=0; i<nBoids; i++) {
-            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),10,Color.web("Black", 1));
+            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),5,Color.web("Black", 1));
             boidWindow.getChildren().add(boidsCircle[i]);
         }
 
