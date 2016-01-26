@@ -27,6 +27,11 @@ public class Logic extends Thread {
         Boid[] boids = Main.getBoids();
         while(true){
             for(int i=0; i<boids.length; i++) {
+
+                boids[i].executeRules(boids);
+
+
+                /*
                 boids[i].setx(boids[i].getx() + random.nextInt(3));
                 boids[i].sety(boids[i].gety() + random.nextInt(2));
             }
@@ -34,7 +39,7 @@ public class Logic extends Thread {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
 
         }
     }
