@@ -38,6 +38,7 @@ public class Boid {
         x = (x - this.getx())/100;
         y = (y - this.gety())/100;
 
+
         ArrayList<Double> vector = new ArrayList<Double>(2);
         vector.add(x);
         vector.add(y);
@@ -98,7 +99,7 @@ public class Boid {
         this.setVelocityX(this.getVelocityX()+(rule1.get(0)*w1)+(rule2.get(0)*w2)+(rule3.get(0)*w3));
         this.setVelocityY(this.getVelocityY()+(rule1.get(1)*w1)+(rule2.get(1)*w2)+(rule3.get(1)*w3));
 
-        double vLim = 5;
+        double vLim = 7;
         double Velocity = Math.sqrt(Math.pow(this.getVelocityX(),2)+Math.pow(this.getVelocityY(),2));
         if (Velocity > vLim){
             this.setVelocityX((this.getVelocityX()/Velocity)*vLim);
