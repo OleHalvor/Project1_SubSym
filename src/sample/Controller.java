@@ -79,21 +79,21 @@ public class Controller {
         sliderWeight1.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                Logic.setWeight1((int)sliderWeight1.getValue());
+                Logic.setWeight1((sliderWeight1.getValue()));
 
             }
         });
         sliderWeight2.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                Logic.setWeight2((int)sliderWeight2.getValue());
+                Logic.setWeight2((sliderWeight2.getValue()));
 
             }
         });
         sliderWeight3.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                Logic.setWeight3((int)sliderWeight3.getValue());
+                Logic.setWeight3((sliderWeight3.getValue()));
 
             }
         });

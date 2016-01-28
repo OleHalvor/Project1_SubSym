@@ -72,11 +72,11 @@ public class Main extends Application {
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
             //boids[i] = new Boid(w,h,5,10);
-            boids[i] = new Boid(0,0,0,0,0);
+            boids[i] = new Boid(0,0,0,1,1);
         }
 
         for (int i=0; i<nBoids; i++) {
-            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),5,Color.web("Black", 1));
+            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),2,Color.web("Black", 1));
             boidWindow.getChildren().add(boidsCircle[i]);
         }
 
