@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 public class Controller {
 
     @FXML
+    private Slider radSlider;
+    @FXML
     private Button stopBtn;
     @FXML
     private Slider sliderWeight1;
@@ -78,21 +80,29 @@ public class Controller {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setWeight1((int)sliderWeight1.getValue());
-                System.out.println("weight 1 changed");
+
             }
         });
         sliderWeight2.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setWeight2((int)sliderWeight2.getValue());
-                System.out.println("weight 2 changed");
+
             }
         });
         sliderWeight3.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setWeight3((int)sliderWeight3.getValue());
-                System.out.println("weight 3 changed");
+
+            }
+        });
+        radSlider.setValue(750);
+        radSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Logic.setN_radius((int)radSlider.getValue());
+
             }
         });
 

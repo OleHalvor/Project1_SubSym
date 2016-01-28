@@ -15,6 +15,7 @@ public class Logic extends Thread {
     private static int weight1;
     private static int weight2;
     private static int weight3;
+    private static int n_radius = 750;
 
     public void run(){
         System.out.println("Logic running");
@@ -23,12 +24,7 @@ public class Logic extends Thread {
     }
 
     private static double boid_distance(Boid b1, Boid b2){
-        int x_1 = b1.getx();
-        int y_1 = b1.gety();
-        int x_2 = b2.getx();
-        int y_2 = b2.gety();
-        return (Math.sqrt(Math.pow((x_2-x_1), 2)+Math.pow(y_2-y_1,2)));
-
+        return (Math.sqrt(Math.pow((b2.getx()-b1.getx()), 2)+Math.pow(b2.gety()-b1.gety(),2)));
     }
 
     public static Boid[] neighbours( Boid[] boids, Boid boid,int radius){
@@ -51,7 +47,7 @@ public class Logic extends Thread {
         while (true) {
             for (int i = 0; i < boids.length; i++) {
                 //System.out.println("neighbour size: "+neighbours(boids,boids[i],200).length);
-                boids[i].executeRules(neighbours(boids,boids[i],100), 1, 1, 1);
+                boids[i].executeRules(neighbours(boids,boids[i],n_radius), 1, 1, 1);
                 //boids[i].executeRules(boids, 1, 1, 1);
 
             }
@@ -62,6 +58,8 @@ public class Logic extends Thread {
             }
         }
     }
+
+    public static void setN_radius(int r){n_radius = r;}
 
     public static void setWeight1(int w){
         weight1 = w;

@@ -32,6 +32,8 @@
             <Slider fx:id="sliderWeight2" />
             <Label text="Weight3" />
             <Slider fx:id="sliderWeight3" />
+            <Label text="Radius" />
+            <Slider fx:id="radSlider" majorTickUnit="150.0" max="750.0" showTickLabels="true" />
          </children></VBox>
    </left>
 </BorderPane>
