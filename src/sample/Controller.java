@@ -109,6 +109,18 @@ public class Controller {
 
     }
 
+    public void setSliderWeight1(int w){
+        sliderWeight1.setValue(w);
+    }
+    public void setSliderWeight2(int w){
+        sliderWeight2.setValue(w);
+    }
+    public void setSliderWeight3(int w){
+        sliderWeight3.setValue(w);
+    }
+    public void setRadSlider(int r){
+        radSlider.setValue(r);
+    }
 
     /**
      * Is called by the main application to give a reference back to itself.

@@ -11,15 +11,21 @@ public class Logic extends Thread {
 
     final static Random random = new Random();
 
+    private static Controller c;
     private static Boid[] boids;
     private static double weight1 = 0.5;
     private static double weight2 = 0.5;
     private static double weight3 = 0.5;
-    private static int n_radius = 750;
+    private static int n_radius = 2000;
+
+    public static int getN_radius(){
+        return n_radius;
+    }
 
     public void run(){
         System.out.println("Logic running");
         updateBoids();
+
 
     }
 
@@ -45,7 +51,6 @@ public class Logic extends Thread {
 
         Boid[] boids = Main.getBoids();
         while (true) {
-            System.out.println("weight 1: "+weight1);
             for (int i = 0; i < boids.length; i++) {
                 //System.out.println("neighbour size: "+neighbours(boids,boids[i],200).length);
                 boids[i].executeRules(neighbours(boids,boids[i],n_radius), weight1, weight2, weight3);
