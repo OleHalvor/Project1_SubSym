@@ -58,6 +58,7 @@ public class Logic extends Thread {
 
             }
             try {
+
                 Thread.sleep(14);
             } catch (InterruptedException e) {
                 e.printStackTrace();

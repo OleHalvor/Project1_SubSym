@@ -98,6 +98,7 @@ public class Boid {
 
         this.setVelocityX(this.getVelocityX()+(rule1.get(0)*w1)+(rule2.get(0)*w2)+(rule3.get(0)*w3));
         this.setVelocityY(this.getVelocityY()+(rule1.get(1)*w1)+(rule2.get(1)*w2)+(rule3.get(1)*w3));
+
         double vLim = 7;
         double Velocity = Math.sqrt(Math.pow(this.getVelocityX(),2)+Math.pow(this.getVelocityY(),2));
         if (Velocity > vLim){
