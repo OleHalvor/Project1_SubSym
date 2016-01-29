@@ -18,12 +18,16 @@ public class Logic extends Thread {
     private static double weight3 = 0.5;
     private static int n_radius = 2000;
 
-    public static int getN_radius(){
-        return n_radius;
+    public static void setController(Controller c2){
+        c = c2;
     }
 
     public void run(){
         System.out.println("Logic running");
+        c.setSliderWeight1(weight1);
+        c.setSliderWeight2(weight2);
+        c.setSliderWeight3(weight3);
+        c.setRadSlider(n_radius);
         updateBoids();
 
 
@@ -49,12 +53,15 @@ public class Logic extends Thread {
 
     public static void updateBoids() {
 
+        ArrayList<Boid[]> neighbours = new ArrayList<Boid[]>();
         Boid[] boids = Main.getBoids();
         while (true) {
             for (int i = 0; i < boids.length; i++) {
-                //System.out.println("neighbour size: "+neighbours(boids,boids[i],200).length);
-                boids[i].executeRules(neighbours(boids,boids[i],n_radius), weight1, weight2, weight3);
-                //boids[i].executeRules(boids, 1, 1, 1);
+                neighbours.add(neighbours(boids,boids[i],n_radius)); //Different n_radius depending on which rule is receiving the array
+                neighbours.add(neighbours(boids,boids[i],n_radius/10));
+                neighbours.add(neighbours(boids,boids[i],n_radius/2));
+                boids[i].executeRules(neighbours, weight1, weight2, weight3);
+                neighbours = new ArrayList<Boid[]>();
 
             }
             try {

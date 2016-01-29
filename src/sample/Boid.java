@@ -91,10 +91,11 @@ public class Boid {
     /* --  End Boid Rules  -- */
 
     /* -- This method executes all the rules of a boid -- */
-    public void executeRules(Boid[] boids, double w1, double w2, double w3){
-        ArrayList<Double> rule1 = rule1(boids);
-        ArrayList<Double> rule2 = rule2(boids);
-        ArrayList<Double> rule3 = rule3(boids);
+    public void executeRules(ArrayList<Boid[]> neighbours, double w1, double w2, double w3){
+        //The rules now use different arrays of boids to calculate positions
+        ArrayList<Double> rule1 = rule1(neighbours.get(0));
+        ArrayList<Double> rule2 = rule2(neighbours.get(1));
+        ArrayList<Double> rule3 = rule3(neighbours.get(2));
 
         this.setVelocityX(this.getVelocityX()+(rule1.get(0)*w1)+(rule2.get(0)*w2)+(rule3.get(0)*w3));
         this.setVelocityY(this.getVelocityY()+(rule1.get(1)*w1)+(rule2.get(1)*w2)+(rule3.get(1)*w3));

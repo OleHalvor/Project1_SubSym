@@ -46,7 +46,7 @@ public class Controller {
      */
     @FXML
     private void initialize() {
-        // Initialize the person table with the two columns.
+        Logic.setController(this);
         resetBtn.setDisable(true);
         stopBtn.setDisable(true);
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -97,7 +97,6 @@ public class Controller {
 
             }
         });
-        radSlider.setValue(750);
         radSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -109,13 +108,13 @@ public class Controller {
 
     }
 
-    public void setSliderWeight1(int w){
+    public void setSliderWeight1(double w){
         sliderWeight1.setValue(w);
     }
-    public void setSliderWeight2(int w){
+    public void setSliderWeight2(double w){
         sliderWeight2.setValue(w);
     }
-    public void setSliderWeight3(int w){
+    public void setSliderWeight3(double w){
         sliderWeight3.setValue(w);
     }
     public void setRadSlider(int r){
@@ -129,8 +128,5 @@ public class Controller {
      */
     public void setMainApp(Main Main) {
         this.Main = Main;
-
-        // Add observable list data to the table
-        //personTable.setItems(mainApp.getPersonData());
     }
 }

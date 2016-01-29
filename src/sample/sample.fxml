@@ -21,7 +21,7 @@
       </ButtonBar>
    </top>
    <center>
-      <Pane fx:id="midPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="midPane" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 5;" BorderPane.alignment="CENTER" />
    </center>
    <left>
       <VBox prefHeight="660.0" prefWidth="141.0" BorderPane.alignment="CENTER">
