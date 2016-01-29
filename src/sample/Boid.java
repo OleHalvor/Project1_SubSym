@@ -76,10 +76,12 @@ public class Boid {
     /* --  End Boid Rules  -- */
 
     /* -- This method executes all the rules of a boid -- */
-    public void executeRules(Boid[] boids, double w1, double w2, double w3){
-        ArrayList<Double> cohesion = cohesion(boids);
-        ArrayList<Double> separation = separation(boids);
-        ArrayList<Double> alignment = alignment(boids);
+
+    public void executeRules(ArrayList<Boid[]> neighbours, double w1, double w2, double w3){
+        //The rules now use different arrays of boids to calculate positions
+        ArrayList<Double> cohesion = cohesion(neighbours.get(0));
+        ArrayList<Double> separation = separation(neighbours.get(1));
+        ArrayList<Double> alignment = alignment(neighbours.get(2));
 
 
     }
