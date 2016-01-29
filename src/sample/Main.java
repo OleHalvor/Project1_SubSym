@@ -24,26 +24,10 @@ public class Main extends Application {
     private Circle[] boidsCircle;
     private static Boid[] boids;
     private BorderPane rootLayout;
-    private int numberOfBoids = 20;
 
     public static Boid[] getBoids(){
         return boids;
     }
-
-    private ObservableList<Boid> boidData = FXCollections.observableArrayList();
-
-    public ObservableList<Boid> getPersonData() {
-        return boidData;
-    }
-
-    public int getNBoids(){
-        return numberOfBoids;
-    }
-
-    public void setNBoids(int nBoids){
-        this.numberOfBoids = nBoids;
-    }
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -72,7 +56,9 @@ public class Main extends Application {
     }
 
     public void stopSim(){
-
+        for (int i=0; i<boidsCircle.length; i++){
+            boidsCircle[i].setRadius(0.01);
+        }
     }
 
     public void startSim(int nBoids){
@@ -86,11 +72,11 @@ public class Main extends Application {
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
             //boids[i] = new Boid(w,h,5,10);
-            boids[i] = new Boid(0,0,5,1,1);
+            boids[i] = new Boid(0,0,0,1,1);
         }
 
         for (int i=0; i<nBoids; i++) {
-            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),5,Color.web("Black", 1));
+            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),2,Color.web("Black", 1));
             boidWindow.getChildren().add(boidsCircle[i]);
         }
 
@@ -101,8 +87,8 @@ public class Main extends Application {
 
         for (int i=0; i<boids.length; i++){
 
-            boids[i].setX(random.nextInt(600));
-            boids[i].setY(random.nextInt(400));
+            boids[i].setX(random.nextInt((int)boidWindow.getWidth()));
+            boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
         final int w = (int) boidWindow.getWidth();

@@ -35,8 +35,9 @@ public class Boid {
         x = x / (boids.length - 1);
         y = y / (boids.length - 1);
 
-        x = (x - this.getx())/100;
-        y = (y - this.gety())/100;
+        x = (x - this.getx())/10;
+        y = (y - this.gety())/10;
+
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
         vector.add(x);
@@ -90,15 +91,17 @@ public class Boid {
     /* --  End Boid Rules  -- */
 
     /* -- This method executes all the rules of a boid -- */
-    public void executeRules(Boid[] boids, int w1, int w2, int w3){
+    public void executeRules(Boid[] boids, double w1, double w2, double w3){
         ArrayList<Double> rule1 = rule1(boids);
         ArrayList<Double> rule2 = rule2(boids);
         ArrayList<Double> rule3 = rule3(boids);
 
+        //this.setVelocityX(this.getVelocityX()+(rule1.get(0)*w1)+(rule2.get(0)*w2)+(rule3.get(0)*w3));
+        //this.setVelocityY(this.getVelocityY()+(rule1.get(1)*w1)+(rule2.get(1)*w2)+(rule3.get(1)*w3));
         this.setVelocityX(this.getVelocityX()+(rule1.get(0)*w1)+(rule2.get(0)*w2)+(rule3.get(0)*w3));
         this.setVelocityY(this.getVelocityY()+(rule1.get(1)*w1)+(rule2.get(1)*w2)+(rule3.get(1)*w3));
 
-        double vLim = 2;
+        double vLim = 7;
         double Velocity = Math.sqrt(Math.pow(this.getVelocityX(),2)+Math.pow(this.getVelocityY(),2));
         if (Velocity > vLim){
             this.setVelocityX((this.getVelocityX()/Velocity)*vLim);
