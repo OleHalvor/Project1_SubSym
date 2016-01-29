@@ -32,7 +32,7 @@ public class Logic extends Thread {
 
             }
             try {
-                Thread.sleep(16);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
