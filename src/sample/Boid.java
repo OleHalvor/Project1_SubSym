@@ -98,7 +98,6 @@ public class Boid {
         double separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-
         this.setVelocity(this.getVelocity()+w3*alignment.get(1));
 
         this.setDir(this.getdir() + w1*cohesion + w2*separation + w3*alignment.get(0));
