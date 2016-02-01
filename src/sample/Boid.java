@@ -82,8 +82,6 @@ public class Boid {
         ArrayList<Double> cohesion = cohesion(neighbours.get(0));
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
-
-
     }
 
     /* -- Getters and Setters -- */
