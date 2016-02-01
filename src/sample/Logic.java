@@ -9,9 +9,9 @@ import java.util.Random;
  */
 public class Logic extends Thread {
 
-    public static double weight1 = 0.01;
-    public static double weight2 = 3;
-    public static double weight3 = 1;
+    public static double weight1 = 0.001;
+    public static double weight2 = 0.3;
+    public static double weight3 = 0.25;
     public static int n_radius = 300;
 
     private static ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -35,7 +35,6 @@ public class Logic extends Thread {
         System.out.println("Predators removed");
 
     }
-
 
 
     public void run(){

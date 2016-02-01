@@ -68,7 +68,7 @@ public class Main extends Application {
         curve1.setStroke(Color.BLACK);
         curve1.setStrokeWidth(1);
         curve1.setFill( null);
-        boidWindow.getChildren().add(curve1);
+        //boidWindow.getChildren().add(curve1);
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
         final Random random = new Random();

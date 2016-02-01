@@ -20,19 +20,6 @@ public class Boid {
         this.alive = true;
     }
 
-    /*private double steerTowards(double goalX, double goalY){
-        double[] goalVector= new double[2];
-        goalVector[0]=goalX-this.x;
-        goalVector[1]=goalY-this.y;
-
-        double[] currentVector=new double[2];
-        currentVector[0]=this.getVelocity() * Math.sin(this.dir);
-        currentVector[1]=this.getVelocity() * Math.cos(this.dir);
-
-        return Math.atan2(currentVector[1],currentVector[0]) - Math.atan2(goalVector[1],goalVector[0]);
-        //return Math.atan2(goalVector[1],goalVector[0]) - Math.atan2(currentVector[1],currentVector[0]);
-    }*/
-
     /* --  Start Boid Rules  -- */
     private ArrayList<Double> cohesion(Boid[] boids){
 
@@ -87,8 +74,6 @@ public class Boid {
             vector.add(0.0);
             return vector;
         }
-
-
         int x_tot = 0;
         int y_tot = 0;
         for (Boid b: boids){
@@ -112,8 +97,8 @@ public class Boid {
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-        int limit = 2;
-        double new_x =this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
+        int limit = 4;
+        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
         double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
         if (new_total_velocity>limit){
