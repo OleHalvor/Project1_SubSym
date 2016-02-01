@@ -105,6 +105,7 @@ public class Controller {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setN_radius((int)radSlider.getValue());
+                System.out.println("Radius: "+radSlider.getValue());
 
             }
         });

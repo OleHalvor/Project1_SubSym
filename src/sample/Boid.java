@@ -28,7 +28,8 @@ public class Boid {
         currentVector[0]=this.getVelocity() * Math.sin(this.dir);
         currentVector[1]=this.getVelocity() * Math.cos(this.dir);
 
-        return Math.atan2(goalVector[1],goalVector[0]) - Math.atan2(currentVector[1],currentVector[0]);
+        return Math.atan2(currentVector[1],currentVector[0]) - Math.atan2(goalVector[1],goalVector[0]);
+        //return Math.atan2(goalVector[1],goalVector[0]) - Math.atan2(currentVector[1],currentVector[0]);
     }
 
     /* --  Start Boid Rules  -- */
