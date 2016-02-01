@@ -25,6 +25,14 @@ public class Main extends Application {
     private static Boid[] boids;
     private BorderPane rootLayout;
 
+    public double getBoidWindowWidth(){
+        return boidWindow.getWidth();
+    }
+
+    public double getBoidWindowHeight(){
+        return boidWindow.getHeight();
+    }
+
     public static Boid[] getBoids(){
         return boids;
     }
