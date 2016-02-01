@@ -20,6 +20,7 @@ public class Boid {
         this.alive = true;
     }
 
+
     /*private double steerTowards(double goalX, double goalY){
         double[] goalVector= new double[2];
         goalVector[0]=goalX-this.x;
@@ -34,6 +35,7 @@ public class Boid {
     }*/
 
     /* --  Start SIMPLE Boid Rules  -- */
+
     private ArrayList<Double> cohesion(Boid[] boids){
 
         double goalX = 0;
@@ -87,8 +89,6 @@ public class Boid {
             vector.add(0.0);
             return vector;
         }
-
-
         int x_tot = 0;
         int y_tot = 0;
         for (Boid b: boids){
@@ -105,7 +105,7 @@ public class Boid {
     /* --  End SIMPLE Boid Rules  -- */
 
     /* -- Start Collision Avoidance -- */
-    private double distance(int x1, int y1, Obstacle o){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
+    /*private double distance(int x1, int y1, Obstacle o){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
 
     private Boolean lineIntersectsCircle(double[] ahead,double[] ahead2, Obstacle o){
         if(distance(o.getx(), o.gety(), ahead[0], ahead[1]) <= o.getradius() || distance(o.getx(), o.gety(), ahead2[0], ahead2[1]) <= o.getradius()){
@@ -143,7 +143,7 @@ public class Boid {
             avoidanceX = avoidanceX - closest.getx();
             avoidanceY = avoidanceY - closest.gety();
         }
-    }
+    }*/
     /* -- End Collision Avoidance -- */
 
     /* -- This method executes all the rules of a boid -- */
@@ -153,8 +153,8 @@ public class Boid {
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-        int limit = 2;
-        double new_x =this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
+        int limit = 4;
+        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
         double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
         if (new_total_velocity>limit){

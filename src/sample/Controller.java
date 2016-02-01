@@ -16,7 +16,10 @@ public class Controller {
     private Button addObsBtn;
     @FXML
     private Button remObsBtn;
-
+    @FXML
+    private Button addPredBtn;
+    @FXML
+    private Button remPredBtn;
     @FXML
     private Slider radSlider;
     @FXML
@@ -84,6 +87,31 @@ public class Controller {
                 Main.startSim(Integer.parseInt(nBoidsField.getText()));
             }
         });
+        addObsBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Logic.addObstacle();
+            }
+        });
+        remObsBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Logic.removeObstacles();
+            }
+        });
+        addPredBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Logic.addPredator();
+            }
+        });
+        remPredBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Logic.removePredators();
+            }
+        });
+
         sliderWeight1.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

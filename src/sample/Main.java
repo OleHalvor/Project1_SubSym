@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Random;
@@ -63,6 +64,11 @@ public class Main extends Application {
     }
     Logic logic = new Logic();
     public void startSim(int nBoids){
+        CubicCurve curve1 = new CubicCurve( 125, 150, 125, 225, 325, 225, 325, 300);
+        curve1.setStroke(Color.BLACK);
+        curve1.setStrokeWidth(1);
+        curve1.setFill( null);
+        //boidWindow.getChildren().add(curve1);
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
         final Random random = new Random();

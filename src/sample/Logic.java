@@ -9,14 +9,38 @@ import java.util.Random;
  */
 public class Logic extends Thread {
 
-    public static double weight1 = 0.01;
-    public static double weight2 = 3;
-    public static double weight3 = 0.01;
+    public static double weight1 = 0.001;
+    public static double weight2 = 0.3;
+    public static double weight3 = 0.25;
     public static int n_radius = 300;
+
+    private static ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+    private static ArrayList<Predator> predators = new ArrayList<Predator>();
+
+    public static void addObstacle(){
+        System.out.println("Obstacle added");
+    }
+
+    public static void removeObstacles(){
+        System.out.println("Obstacles removed");
+
+    }
+
+    public static void addPredator(){
+        System.out.println("Predator added");
+
+    }
+
+    public static void removePredators(){
+        System.out.println("Predators removed");
+
+    }
+
 
     public void run(){
         updateBoids();
     }
+
     private static double boid_distance(Boid b1, Boid b2){
         return Math.abs((Math.sqrt(Math.pow((b2.getx()-b1.getx()), 2) + Math.pow(b2.gety()-b1.gety(),2))));
     }
@@ -39,7 +63,7 @@ public class Logic extends Thread {
         while (true) {
             for (int i = 0; i < boids.length; i++) {
                 neighbours.add(neighbours(boids,boids[i],n_radius));
-                neighbours.add(neighbours(boids,boids[i],n_radius/50));
+                neighbours.add(neighbours(boids,boids[i],n_radius/20));
                 neighbours.add(neighbours(boids,boids[i],n_radius/2));
                 boids[i].executeRules(neighbours, weight1, weight2, weight3);
                 neighbours = new ArrayList<Boid[]>();
