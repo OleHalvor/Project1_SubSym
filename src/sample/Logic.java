@@ -30,7 +30,7 @@ public class Logic extends Thread {
     }
 
     private static double boid_distance(Boid b1, Boid b2){
-        return (Math.sqrt(Math.pow((b2.getx()-b1.getx()), 2) + Math.pow(b2.gety()-b1.gety(),2)));
+        return Math.abs((Math.sqrt(Math.pow((b2.getx()-b1.getx()), 2) + Math.pow(b2.gety()-b1.gety(),2))));
     }
 
     public static Boid[] neighbours( Boid[] boids, Boid boid, int radius){
