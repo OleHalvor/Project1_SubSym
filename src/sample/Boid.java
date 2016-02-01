@@ -34,6 +34,9 @@ public class Boid {
 
     /* --  Start Boid Rules  -- */
     private double cohesion(Boid[] boids){
+        if (boids.length<=0){
+            return 0;
+        }
         double goalX = 0;
         double goalY = 0;
 
@@ -55,6 +58,9 @@ public class Boid {
     }
 
     private double separation(Boid[] boids){
+        if (boids.length<=0){
+            return 0;
+        }
         double goalX = 0;
         double goalY = 0;
 
@@ -74,6 +80,11 @@ public class Boid {
     }
 
     private ArrayList<Double> alignment(Boid[] boids){
+        if (boids.length<=0){
+            ArrayList<Double> vector = new ArrayList<Double>(2);
+            vector.add(0.0);
+            vector.add(0.0);
+        }
         double dDir = 0;
         double dVel = 0;
         for (Boid b : boids) {
@@ -114,18 +125,17 @@ public class Boid {
         //System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
         double w = Main.getBoidWindowWidth();
         double h = Main.getBoidWindowHeight();
-        int r = 2;
-        if (this.getx() >= w+r){
-            this.setX(-r);
+        if (this.getx() >= w-2){
+            this.setX(0);
         }
-        if (this.getx() <= -r) {
-            this.setX((int)w + r);
+        else if (this.getx() <= 0) {
+            this.setX((int)w);
         }
-        if (this.gety() >= h+r){
-            this.setY(-r);
+        if (this.gety() >= h-2){
+            this.setY(0);
         }
-        else if (this.gety() <= -r){
-            this.setY((int)h + r);
+        else if (this.gety() <= 0){
+            this.setY((int)h);
         }
         //System.out.println("AFTER  X: "+ this.x+"   Y: "+this.y);
 

@@ -55,7 +55,7 @@ public class Logic extends Thread {
             for (int i = 0; i < boids.length; i++) {
 
                 neighbours.add(neighbours(boids,boids[i],n_radius));
-                neighbours.add(neighbours(boids,boids[i],n_radius/4));
+                neighbours.add(neighbours(boids,boids[i],n_radius/50));
                 neighbours.add(neighbours(boids,boids[i],n_radius/2));
                 boids[i].executeRules(neighbours, weight1, weight2, weight3);
 

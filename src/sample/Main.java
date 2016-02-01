@@ -67,8 +67,14 @@ public class Main extends Application {
         for (int i=0; i<boidsCircle.length; i++){
             boidsCircle[i].setRadius(0.01);
         }
-    }
+        try {
+            logic.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+    }
+    Logic logic = new Logic();
     public void startSim(int nBoids){
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
