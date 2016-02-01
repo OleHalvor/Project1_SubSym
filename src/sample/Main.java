@@ -2,12 +2,8 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -46,29 +42,26 @@ public class Main extends Application {
         loader.setLocation(Main.class.getResource("boidWindow.fxml"));
         boidWindow = null;
         try {
-            boidWindow = (Pane) loader.load();
-
+            boidWindow = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Set person overview into the center of root layout.
         rootLayout.setCenter(boidWindow);
         boidWindow.setId("bw");
-
-
-
-
-
-        //Circle circle = new Circle(50,50,25,Color.web("Black", 1));
-        //boidWindow.getChildren().add(circle);
     }
 
     public void stopSim(){
         for (int i=0; i<boidsCircle.length; i++){
             boidsCircle[i].setRadius(0.01);
         }
-    }
+        try {
+            logic.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+    }
+    Logic logic = new Logic();
     public void startSim(int nBoids){
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
@@ -80,7 +73,6 @@ public class Main extends Application {
             int w = (int) width;
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
-            //boids[i] = new Boid(0,0,1,1);
             boids[i] = new Boid(0,0,random.nextDouble()*6,random.nextInt(10)+1);
         }
 
@@ -91,37 +83,19 @@ public class Main extends Application {
 
         Logic logic = new Logic();
         logic.setDaemon(true);
-        System.out.println("Starting background task...");
+        System.out.println("Starting boids");
         logic.start();
 
         for (int i=0; i<boids.length; i++){
-
             boids[i].setX(random.nextInt((int)boidWindow.getWidth()));
             boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
-        final int w = (int) boidWindow.getWidth();
-        final int h = (int) boidWindow.getHeight();
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //Her skjer animering
+                //This is the animation loop. Called as often as possible up to the frequency of the monitor.
                 for (int i=0; i<boids.length; i++){
-                    /*
-                    if (boids[i].getx()>=w){
-                        boids[i].setX(0);
-                    }
-                    else if (boids[i].getx()<=0) {
-                        boids[i].setX(w);
-                    }
-                    if (boids[i].gety()>=h){
-                        boids[i].setY(0);
-                    }
-                    else if (boids[i].gety()<=0){
-                        boids[i].setY(h);
-                    }
-                    */
-                    //System.out.println("X: "+boids[i].getx()+" Y: "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
                 }
