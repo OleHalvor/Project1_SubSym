@@ -114,17 +114,17 @@ public class Boid {
         double w = Main.getBoidWindowWidth();
         double h = Main.getBoidWindowHeight();
         int r = 2;
-        if (this.getx() >= w+r){
-            this.setX(-r);
+        if (this.getx() > w-1){
+            this.setX(1);
         }
-        if (this.getx() <= -r) {
-            this.setX((int)w + r);
+        if (this.getx() < 1) {
+            this.setX((int)w-1);
         }
-        if (this.gety() >= h+r){
-            this.setY(-r);
+        if (this.gety() > h-1){
+            this.setY(1);
         }
-        else if (this.gety() <= -r){
-            this.setY((int)h + r);
+        else if (this.gety() < 1){
+            this.setY((int)h-1);
         }
         //System.out.println("AFTER  X: "+ this.x+"   Y: "+this.y);
 
