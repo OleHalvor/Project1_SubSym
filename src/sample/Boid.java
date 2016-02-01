@@ -1,25 +1,38 @@
 package sample;
 import java.util.*;
+
 /**
  * Created by Ole on 22.01.2016.
  */
 public class Boid {
     private int x;
     private int y;
-    private int dir;
+    private double dir;
     private double velocity;
     private boolean alive;
 
-    public Boid(int x, int y, int dir, double velocity){
+    public Boid(int x, int y, double dir, double velocity){
         this.x = x;
         this.y = y;
-        this.dir = dir;
+        this.dir = dir; //radianer
         this.velocity = velocity;
         this.alive = true;
     }
 
+    private double steerTowards(double goalX, double goalY){
+        double[] goalVector= new double[2];
+        goalVector[0]=goalX-this.x;
+        goalVector[1]=goalY-this.y;
+
+        double[] currentVector=new double[2];
+        currentVector[0]=this.getVelocity() * Math.sin(this.dir);
+        currentVector[1]=this.getVelocity() * Math.cos(this.dir);
+
+        return Math.atan2(goalVector[1],goalVector[0]) - Math.atan2(currentVector[1],currentVector[0]);
+    }
+
     /* --  Start Boid Rules  -- */
-    private ArrayList<Double> cohesion(Boid[] boids){
+    private double cohesion(Boid[] boids){
         double goalX = 0;
         double goalY = 0;
 
@@ -35,10 +48,12 @@ public class Boid {
         ArrayList<Double> vector = new ArrayList<Double>(2);
         vector.add(goalX);
         vector.add(goalY);
-        return vector;
+
+
+        return steerTowards(goalX,goalY);
     }
 
-    private ArrayList<Double> separation(Boid[] boids){
+    private double separation(Boid[] boids){
         double goalX = 0;
         double goalY = 0;
 
@@ -54,7 +69,7 @@ public class Boid {
         vector.add(goalX);
         vector.add(goalY);
 
-        return vector;
+        return steerTowards(goalX,goalY);
     }
 
     private ArrayList<Double> alignment(Boid[] boids){
@@ -79,9 +94,40 @@ public class Boid {
 
     public void executeRules(ArrayList<Boid[]> neighbours, double w1, double w2, double w3){
         //The rules now use different arrays of boids to calculate positions
-        ArrayList<Double> cohesion = cohesion(neighbours.get(0));
-        ArrayList<Double> separation = separation(neighbours.get(1));
+        double cohesion = cohesion(neighbours.get(0));
+        double separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
+
+        this.setVelocity(this.getVelocity()+w3*alignment.get(1));
+
+        this.setDir(this.getdir() + w1*cohesion + w2*separation + w3*alignment.get(0));
+
+        //System.out.println("Direction: " +this.dir);
+        //System.out.println("Velocity: " +this.velocity);
+
+
+
+        if (this.velocity>=6)velocity=2;
+        this.x=((int)(this.getx() + (this.getVelocity() * Math.sin(this.dir))));
+        this.y=((int)(this.gety() + (this.getVelocity() * Math.cos(this.dir))));
+        System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
+        int w= 858;
+        int h = 657;
+        if (this.getx()>=w){
+            this.setX(0);
+        }
+        else if (this.getx()<=0) {
+            this.setX(w);
+        }
+        if (this.gety()>=h){
+            this.setY(0);
+        }
+        else if (this.gety()<=0){
+            this.setY(h);
+        }
+        System.out.println("AFTER  X: "+ this.x+"   Y: "+this.y);
+
+
     }
 
     /* -- Getters and Setters -- */
@@ -89,8 +135,9 @@ public class Boid {
     public int gety(){return y;}
     public void setX(int x) {this.x = x;}
     public void setY(int y) {this.y = y;}
-    public int getdir(){return dir;}
+    public double getdir(){return dir;}
 
+    public void setDir(double d){this.dir = d;}
     public double getVelocity(){return velocity;}
     public void setVelocity(double velocity) {this.velocity = velocity;}
 }

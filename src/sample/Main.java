@@ -25,6 +25,14 @@ public class Main extends Application {
     private static Boid[] boids;
     private BorderPane rootLayout;
 
+    public double getBoidWindowWidth(){
+        return boidWindow.getWidth();
+    }
+
+    public double getBoidWindowHeight(){
+        return boidWindow.getHeight();
+    }
+
     public static Boid[] getBoids(){
         return boids;
     }
@@ -65,14 +73,15 @@ public class Main extends Application {
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
         final Random random = new Random();
+        System.out.println("BOIDWINDOW W AND H: "+boidWindow.getWidth()+" "+ boidWindow.getHeight());
 
         for (int i=0; i<nBoids; i++) {
             double width = random.nextDouble()*boidWindow.getWidth();
             int w = (int) width;
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
-            //boids[i] = new Boid(w,h,5,10);
-            boids[i] = new Boid(0,0,0,1,1);
+            //boids[i] = new Boid(0,0,1,1);
+            boids[i] = new Boid(0,0,random.nextDouble()*6,random.nextInt(10)+1);
         }
 
         for (int i=0; i<nBoids; i++) {
@@ -98,18 +107,20 @@ public class Main extends Application {
             public void handle(long now) {
                 //Her skjer animering
                 for (int i=0; i<boids.length; i++){
-                    if (boids[i].getx()>w){
+                    /*
+                    if (boids[i].getx()>=w){
                         boids[i].setX(0);
                     }
-                    else if (boids[i].getx()<0) {
+                    else if (boids[i].getx()<=0) {
                         boids[i].setX(w);
                     }
-                    if (boids[i].gety()>h){
+                    if (boids[i].gety()>=h){
                         boids[i].setY(0);
                     }
-                    else if (boids[i].gety()<0){
+                    else if (boids[i].gety()<=0){
                         boids[i].setY(h);
                     }
+                    */
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
                 }
