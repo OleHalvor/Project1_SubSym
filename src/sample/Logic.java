@@ -13,10 +13,10 @@ public class Logic extends Thread {
 
     private static Controller c;
     private static Boid[] boids;
-    private static double weight1 = 0.01;
-    private static double weight2 = 0;
-    private static double weight3 = 0.001;
-    private static int n_radius = 2000;
+    public static double weight1 = 0.01;
+    public static double weight2 = 0;
+    public static double weight3 = 0.001;
+    public static int n_radius = 2000;
 
     public static void setController(Controller c2){
         c = c2;

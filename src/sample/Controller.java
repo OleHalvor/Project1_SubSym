@@ -46,6 +46,10 @@ public class Controller {
      */
     @FXML
     private void initialize() {
+        sliderWeight1.setValue(Logic.weight1);
+        sliderWeight2.setValue(Logic.weight2);
+        sliderWeight3.setValue(Logic.weight3);
+        radSlider.setValue(Logic.n_radius);
         Logic.setController(this);
         resetBtn.setDisable(true);
         stopBtn.setDisable(true);
