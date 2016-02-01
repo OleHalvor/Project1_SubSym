@@ -81,39 +81,20 @@ public class Boid {
             ArrayList<Double> vector = new ArrayList<Double>(2);
             vector.add(0.0);
             vector.add(0.0);
+            return vector;
         }
 
-        double velX = 0;
-        double velY = 0;
-        double neighbourdist = 50;
-        int count = 0
-        for (Boid b : boids) {
-            double d = Math.abs(Math.sqrt(Math.pow((b.getx()-this.getx()),2) + Math.pow(b.gety()-this.gety(),2)));
-            if (d > 0 && d < neighbourdist){
-                velX = velY + b.getVelocityX();
-                velY = velY + b.getVelocityY();
-            }
-            count += 1;
-        }//End forloop
-
-        if (count > 0){
-            velX = velX/count;
-            velY = velY/count;
-
-            double length = Math.sqrt(Math.pow(velX, 2)+Math.pow(velY,2));
-            int maxspeed = 2;
-            velX = (velX/length)*maxspeed;
-            velY = (velY/length)*maxspeed;
-
-            velX = velX-this.getVelocityX();
-            velY = velY-this.getVelocityY();
+        int x_tot = 0;
+        int y_tot = 0;
+        for (Boid b: boids){
+            x_tot+=b.getVelocityX();
+            y_tot+=b.getVelocityY();
         }
-
-
-        ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(Math.sin()*dVelX);
-        vector.add(Math.cos()*dVelY);
-
+        double x_avg = x_tot/boids.length;
+        double y_avg = y_tot/boids.length;
+        ArrayList<Double> vector = new ArrayList<Double>();
+        vector.add(x_avg);
+        vector.add(y_avg);
         return vector;
     }
     /* --  End Boid Rules  -- */
@@ -126,13 +107,19 @@ public class Boid {
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-        this.setVelocityX(this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0));
-        this.setVelocityY(this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1));
+        int limit = 7;
+        double new_x =this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
+        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
+        double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
+        if (new_total_velocity>limit){
+            double ratio = limit/new_total_velocity;
+            new_x = new_x * ratio;
+            new_y = new_y * ratio;
+        }
+        this.setVelocityX(new_x);
+        this.setVelocityY(new_y);
 
 
-
-
-        //if (this.velocity>=6)velocity=2;
         this.setX( (int)( this.getx() + (this.getVelocityX()) ) );
         this.setY( (int)( this.gety() + (this.getVelocityY()) ) );
         //System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
