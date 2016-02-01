@@ -20,16 +20,16 @@ import java.util.Random;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private Pane boidWindow;
+    private static Pane boidWindow;
     private Circle[] boidsCircle;
     private static Boid[] boids;
     private BorderPane rootLayout;
 
-    public double getBoidWindowWidth(){
+    public static double getBoidWindowWidth(){
         return boidWindow.getWidth();
     }
 
-    public double getBoidWindowHeight(){
+    public static double getBoidWindowHeight(){
         return boidWindow.getHeight();
     }
 

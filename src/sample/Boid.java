@@ -110,22 +110,22 @@ public class Boid {
         if (this.velocity>=6)velocity=2;
         this.x=((int)(this.getx() + (this.getVelocity() * Math.sin(this.dir))));
         this.y=((int)(this.gety() + (this.getVelocity() * Math.cos(this.dir))));
-        System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
-        int w= 858;
-        int h = 657;
+        //System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
+        double w= Main.getBoidWindowWidth();
+        double h = Main.getBoidWindowHeight();
         if (this.getx()>=w){
             this.setX(0);
         }
         else if (this.getx()<=0) {
-            this.setX(w);
+            this.setX((int)w);
         }
         if (this.gety()>=h){
             this.setY(0);
         }
         else if (this.gety()<=0){
-            this.setY(h);
+            this.setY((int)h);
         }
-        System.out.println("AFTER  X: "+ this.x+"   Y: "+this.y);
+        //System.out.println("AFTER  X: "+ this.x+"   Y: "+this.y);
 
 
     }
