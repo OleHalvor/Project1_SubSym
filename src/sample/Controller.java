@@ -50,9 +50,10 @@ public class Controller {
         sliderWeight2.setValue(Logic.weight2);
         sliderWeight3.setValue(Logic.weight3);
         radSlider.setValue(Logic.n_radius);
-        Logic.setController(this);
+
         resetBtn.setDisable(true);
         stopBtn.setDisable(true);
+
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -69,7 +70,6 @@ public class Controller {
                 resetBtn.setDisable(true);
                 stopBtn.setDisable(true);
                 Main.stopSim();
-
             }
         });
         resetBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -77,21 +77,18 @@ public class Controller {
             public void handle(ActionEvent event) {
                 Main.stopSim();
                 Main.startSim(Integer.parseInt(nBoidsField.getText()));
-
             }
         });
         sliderWeight1.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setWeight1((sliderWeight1.getValue()));
-
             }
         });
         sliderWeight2.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setWeight2((sliderWeight2.getValue()));
-
             }
         });
         sliderWeight3.valueProperty().addListener(new ChangeListener<Number>() {
@@ -106,31 +103,10 @@ public class Controller {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setN_radius((int)radSlider.getValue());
                 System.out.println("Radius: "+radSlider.getValue());
-
             }
         });
-
-
     }
 
-    public void setSliderWeight1(double w){
-        sliderWeight1.setValue(w);
-    }
-    public void setSliderWeight2(double w){
-        sliderWeight2.setValue(w);
-    }
-    public void setSliderWeight3(double w){
-        sliderWeight3.setValue(w);
-    }
-    public void setRadSlider(int r){
-        radSlider.setValue(r);
-    }
-
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param Main
-     */
     public void setMainApp(Main Main) {
         this.Main = Main;
     }

@@ -86,7 +86,6 @@ public class Main extends Application {
             int w = (int) width;
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
-            //boids[i] = new Boid(0,0,1,1);
             boids[i] = new Boid(0,0,random.nextDouble()*6,random.nextInt(10)+1);
         }
 
@@ -97,37 +96,19 @@ public class Main extends Application {
 
         Logic logic = new Logic();
         logic.setDaemon(true);
-        System.out.println("Starting background task...");
+        System.out.println("Starting boids");
         logic.start();
 
         for (int i=0; i<boids.length; i++){
-
             boids[i].setX(random.nextInt((int)boidWindow.getWidth()));
             boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
-        final int w = (int) boidWindow.getWidth();
-        final int h = (int) boidWindow.getHeight();
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //Her skjer animering
+                //This is the animation loop. Called as often as possible up to the frequency of the monitor.
                 for (int i=0; i<boids.length; i++){
-                    /*
-                    if (boids[i].getx()>=w){
-                        boids[i].setX(0);
-                    }
-                    else if (boids[i].getx()<=0) {
-                        boids[i].setX(w);
-                    }
-                    if (boids[i].gety()>=h){
-                        boids[i].setY(0);
-                    }
-                    else if (boids[i].gety()<=0){
-                        boids[i].setY(h);
-                    }
-                    */
-                    //System.out.println("X: "+boids[i].getx()+" Y: "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
                 }
