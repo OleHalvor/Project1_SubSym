@@ -24,10 +24,6 @@ public class Logic extends Thread {
 
     public void run(){
         System.out.println("Logic running");
-        c.setSliderWeight1(weight1);
-        c.setSliderWeight2(weight2);
-        c.setSliderWeight3(weight3);
-        c.setRadSlider(n_radius);
         updateBoids();
 
 
@@ -55,10 +51,19 @@ public class Logic extends Thread {
         Boid[] boids = Main.getBoids();
         while (true) {
             for (int i = 0; i < boids.length; i++) {
-                neighbours.add(neighbours(boids,boids[i],n_radius)); //Different n_radius depending on which rule is receiving the array
+
+                neighbours.add(neighbours(boids,boids[i],n_radius));
                 neighbours.add(neighbours(boids,boids[i],n_radius/4));
                 neighbours.add(neighbours(boids,boids[i],n_radius/2));
                 boids[i].executeRules(neighbours, weight1, weight2, weight3);
+
+
+                /*
+                neighbours.add(boids);
+                neighbours.add(boids);
+                neighbours.add(boids);
+                boids[i].executeRules(neighbours,weight1,weight2,weight3);*/
+
                 neighbours = new ArrayList<Boid[]>();
 
             }

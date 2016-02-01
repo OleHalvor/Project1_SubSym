@@ -121,6 +121,7 @@ public class Main extends Application {
                         boids[i].setY(h);
                     }
                     */
+                    //System.out.println("X: "+boids[i].getx()+" Y: "+boids[i].gety());
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
                 }
