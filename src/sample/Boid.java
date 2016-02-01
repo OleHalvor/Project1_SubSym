@@ -114,9 +114,6 @@ public class Boid {
 
         this.setDir(this.getdir() + w1*cohesion + w2*separation + w3*alignment.get(0));
 
-        //System.out.println("Direction: " +this.dir);
-        //System.out.println("Velocity: " +this.velocity);
-
 
 
         if (this.velocity>=6)velocity=2;
