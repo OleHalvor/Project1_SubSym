@@ -60,8 +60,10 @@ public class Boid {
 
         double goalX = 0;
         double goalY = 0;
+        int count = boids.length;
 
         for (Boid b : boids){
+
             goalX = goalX + b.getx();
             goalY = goalY+ b.gety();
         }//end Forloop
@@ -85,6 +87,7 @@ public class Boid {
             vector.add(0.0);
             return vector;
         }
+
 
         int x_tot = 0;
         int y_tot = 0;
