@@ -2,12 +2,8 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -46,21 +42,12 @@ public class Main extends Application {
         loader.setLocation(Main.class.getResource("boidWindow.fxml"));
         boidWindow = null;
         try {
-            boidWindow = (Pane) loader.load();
-
+            boidWindow = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Set person overview into the center of root layout.
         rootLayout.setCenter(boidWindow);
         boidWindow.setId("bw");
-
-
-
-
-
-        //Circle circle = new Circle(50,50,25,Color.web("Black", 1));
-        //boidWindow.getChildren().add(circle);
     }
 
     public void stopSim(){
