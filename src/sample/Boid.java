@@ -11,7 +11,7 @@ public class Boid {
     private double velocity;
     private boolean alive;
 
-    public Boid(int x, int y, int dir, double velocity){
+    public Boid(int x, int y, double dir, double velocity){
         this.x = x;
         this.y = y;
         this.dir = dir; //radianer
@@ -99,17 +99,34 @@ public class Boid {
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
 
-        this.setVelocity(this.getVelocity()+alignment.get(1));
+        this.setVelocity(this.getVelocity()+w3*alignment.get(1));
+
         this.setDir(this.getdir() + w1*cohesion + w2*separation + w3*alignment.get(0));
 
-        System.out.println("Direction: " +this.dir);
-        System.out.println("Velocity: " +this.velocity);
+        //System.out.println("Direction: " +this.dir);
+        //System.out.println("Velocity: " +this.velocity);
 
 
+
+        if (this.velocity>=6)velocity=2;
         this.x=((int)(this.getx() + (this.getVelocity() * Math.sin(this.dir))));
         this.y=((int)(this.gety() + (this.getVelocity() * Math.cos(this.dir))));
-
-
+        System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
+        int w= 858;
+        int h = 657;
+        if (this.getx()>=w){
+            this.setX(0);
+        }
+        else if (this.getx()<=0) {
+            this.setX(w);
+        }
+        if (this.gety()>=h){
+            this.setY(0);
+        }
+        else if (this.gety()<=0){
+            this.setY(h);
+        }
+        System.out.println("AFTER  X: "+ this.x+"   Y: "+this.y);
 
 
     }

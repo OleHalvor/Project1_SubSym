@@ -13,9 +13,9 @@ public class Logic extends Thread {
 
     private static Controller c;
     private static Boid[] boids;
-    private static double weight1 = 0.5;
-    private static double weight2 = 0.5;
-    private static double weight3 = 0.5;
+    private static double weight1 = 0.01;
+    private static double weight2 = 0;
+    private static double weight3 = 0.001;
     private static int n_radius = 2000;
 
     public static void setController(Controller c2){
@@ -58,7 +58,7 @@ public class Logic extends Thread {
         while (true) {
             for (int i = 0; i < boids.length; i++) {
                 neighbours.add(neighbours(boids,boids[i],n_radius)); //Different n_radius depending on which rule is receiving the array
-                neighbours.add(neighbours(boids,boids[i],n_radius/10));
+                neighbours.add(neighbours(boids,boids[i],n_radius/4));
                 neighbours.add(neighbours(boids,boids[i],n_radius/2));
                 boids[i].executeRules(neighbours, weight1, weight2, weight3);
                 neighbours = new ArrayList<Boid[]>();
@@ -66,7 +66,7 @@ public class Logic extends Thread {
             }
             try {
 
-                Thread.sleep(14);
+                Thread.sleep(140);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
