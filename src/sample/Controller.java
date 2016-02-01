@@ -13,6 +13,11 @@ import javafx.scene.control.*;
 public class Controller {
 
     @FXML
+    private Button addObsBtn;
+    @FXML
+    private Button remObsBtn;
+
+    @FXML
     private Slider radSlider;
     @FXML
     private Button stopBtn;

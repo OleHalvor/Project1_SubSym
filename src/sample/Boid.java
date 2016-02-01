@@ -109,7 +109,7 @@ public class Boid {
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-        int limit = 7;
+        int limit = 2;
         double new_x =this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
         double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
@@ -127,13 +127,13 @@ public class Boid {
         //System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
         double w = Main.getBoidWindowWidth();
         double h = Main.getBoidWindowHeight();
-        if (this.getx() >= w-2){
+        if (this.getx() >= w){
             this.setX(0);
         }
-        else if (this.getx() <= 0) {
+        else if (this.getx() <=0) {
             this.setX((int)w);
         }
-        if (this.gety() >= h-2){
+        if (this.gety() >= h){
             this.setY(0);
         }
         else if (this.gety() <= 0){
