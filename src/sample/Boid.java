@@ -20,7 +20,22 @@ public class Boid {
         this.alive = true;
     }
 
-    /* --  Start Boid Rules  -- */
+
+    /*private double steerTowards(double goalX, double goalY){
+        double[] goalVector= new double[2];
+        goalVector[0]=goalX-this.x;
+        goalVector[1]=goalY-this.y;
+
+        double[] currentVector=new double[2];
+        currentVector[0]=this.getVelocity() * Math.sin(this.dir);
+        currentVector[1]=this.getVelocity() * Math.cos(this.dir);
+
+        return Math.atan2(currentVector[1],currentVector[0]) - Math.atan2(goalVector[1],goalVector[0]);
+        //return Math.atan2(goalVector[1],goalVector[0]) - Math.atan2(currentVector[1],currentVector[0]);
+    }*/
+
+    /* --  Start SIMPLE Boid Rules  -- */
+
     private ArrayList<Double> cohesion(Boid[] boids){
 
         double goalX = 0;
@@ -87,10 +102,51 @@ public class Boid {
         vector.add(y_avg);
         return vector;
     }
-    /* --  End Boid Rules  -- */
+    /* --  End SIMPLE Boid Rules  -- */
+
+    /* -- Start Collision Avoidance -- */
+    /*private double distance(int x1, int y1, Obstacle o){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
+
+    private Boolean lineIntersectsCircle(double[] ahead,double[] ahead2, Obstacle o){
+        if(distance(o.getx(), o.gety(), ahead[0], ahead[1]) <= o.getradius() || distance(o.getx(), o.gety(), ahead2[0], ahead2[1]) <= o.getradius()){
+            return true;
+        }
+        return false;
+    }
+
+    private Obstacle findClosestObstacle(double[] ahead,double[] ahead2, Obstacle[] obstacles){
+        Obstacle closest = null;
+
+        for (int i=0; i<obstacles.length; i++){
+            Obstacle currentObstacle = obstacles[i];
+            boolean collision = lineIntersectsCircle(ahead, ahead2, currentObstacle);
+
+            if(collision && ( closest==null ||
+                    distance(this.getx(), this.gety(), currentObstacle.getx(), currentObstacle.gety()) <
+                    distance(this.getx(), this.gety(), closest.getx(), closest.gety()) ) ){
+                closest = currentObstacle;
+            }
+        }
+        return closest;
+    }
+
+    private ArrayList<Double> collisionAvoidance(Obstacle[] obstacles){
+        ahead = ...;
+        ahead2 = ...;
+
+        Obstacle closest = findClosestObstacle(ahead, ahead2, obstacles);
+
+        double avoidanceX = 0;
+        double avoidanceY = 0;
+
+        if (closest != null){
+            avoidanceX = avoidanceX - closest.getx();
+            avoidanceY = avoidanceY - closest.gety();
+        }
+    }*/
+    /* -- End Collision Avoidance -- */
 
     /* -- This method executes all the rules of a boid -- */
-
     public void executeRules(ArrayList<Boid[]> neighbours, double w1, double w2, double w3){
         //The rules now use different arrays of boids to calculate positions
         ArrayList<Double> cohesion = cohesion(neighbours.get(0));
