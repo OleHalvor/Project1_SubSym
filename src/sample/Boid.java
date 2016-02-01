@@ -62,18 +62,20 @@ public class Boid {
         double goalY = 0;
 
         for (Boid b : boids){
-            goalX = goalX + this.getx() - b.getx();
-            goalY = goalY + this.gety() - b.gety();
-        }
+            goalX = goalX + b.getx();
+            goalY = goalY+ b.gety();
+        }//end Forloop
 
-        goalX = goalX/boids.length;
-        goalY = goalY/boids.length;
+        goalX = goalX / (boids.length);
+        goalY = goalY / (boids.length);
+
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(goalX-this.getx());
-        vector.add(goalY-this.gety());
+        vector.add(this.getx()-goalX);
+        vector.add(this.gety()-goalY);
 
-        return vector;//steerTowards(goalX,goalY);
+
+        return vector; //steerTowards(goalX,goalY);
     }
 
     private ArrayList<Double> alignment(Boid[] boids){
