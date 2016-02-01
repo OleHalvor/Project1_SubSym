@@ -10,9 +10,9 @@ import java.util.Random;
 public class Logic extends Thread {
 
     public static double weight1 = 0.01;
-    public static double weight2 = 0;
-    public static double weight3 = 0.001;
-    public static int n_radius = 2000;
+    public static double weight2 = 3;
+    public static double weight3 = 0.01;
+    public static int n_radius = 300;
 
     public void run(){
         updateBoids();

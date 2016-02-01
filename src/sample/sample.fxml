@@ -16,7 +16,7 @@
             <Button fx:id="stopBtn" mnemonicParsing="false" text="Stop" />
             <Button fx:id="startBtn" mnemonicParsing="false" text="Start" />
             <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" />
-            <TextField fx:id="nBoidsField" promptText="5" text="5" />
+            <TextField fx:id="nBoidsField" promptText="200" text="200" />
         </buttons>
       </ButtonBar>
    </top>
@@ -27,13 +27,17 @@
       <VBox prefHeight="660.0" prefWidth="141.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Cohesion" />
-            <Slider fx:id="sliderWeight1" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" value="0.5" />
+            <Slider fx:id="sliderWeight1" blockIncrement="0.01" majorTickUnit="0.01" max="0.1" minorTickCount="0" showTickLabels="true" showTickMarks="true" value="0.005" />
             <Label text="Separation" />
             <Slider fx:id="sliderWeight2" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" value="0.5" />
             <Label text="Alignment" />
-            <Slider fx:id="sliderWeight3" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" value="0.5" />
+            <Slider fx:id="sliderWeight3" blockIncrement="0.1" majorTickUnit="0.1" max="0.3" minorTickCount="0" showTickLabels="true" showTickMarks="true" value="0.1" />
             <Label text="Radius" />
-            <Slider fx:id="radSlider" majorTickUnit="1000.0" max="2000.0" showTickLabels="true" value="2000.0" />
+            <Slider fx:id="radSlider" majorTickUnit="1000.0" max="800.0" showTickLabels="true" value="300.0" />
+            <Button fx:id="addObsBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Add obstacle" />
+            <Button fx:id="remObsBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Remove obstacles" />
+            <Button fx:id="addPredBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Add predator" />
+            <Button fx:id="remPredBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Remove predators" />
          </children></VBox>
    </left>
 </BorderPane>

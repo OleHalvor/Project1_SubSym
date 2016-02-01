@@ -63,38 +63,21 @@ public class Boid {
         int count = boids.length;
 
         for (Boid b : boids){
-            double d = Math.sqrt( Math.pow(b.getx()-this.getx(),2) + Math.pow(b.gety()-this.gety(),2) );
-            double diffX = this.getx() - b.getx();
-            double diffY = this.gety() - b.gety();
-            double length = Math.sqrt(Math.pow(diffX, 2)+Math.pow(diffY,2));
-            diffX=(diffX/length)/d;
-            diffY=(diffY/length)/d;
-            goalX = goalX + diffX;
-            goalY = goalY + diffY;
-            count += 1;
-            }
 
-        if (count>0){
-            goalX = goalX/count;
-            goalY = goalY/count;
+            goalX = goalX + b.getx();
+            goalY = goalY+ b.gety();
+        }//end Forloop
 
-        }
-        if (Math.sqrt(Math.pow(goalX, 2)+Math.pow(goalY,2)) > 0){
-            double length = Math.sqrt(Math.pow(goalX, 2)+Math.pow(goalY,2));
-            int maxspeed = 2;
-            goalX = (goalX/length)*maxspeed;
-            goalY = (goalY/length)*maxspeed;
-
-            goalX = goalX-this.getVelocityX();
-            goalY = goalY-this.getVelocityY();
-        }
+        goalX = goalX / (boids.length);
+        goalY = goalY / (boids.length);
 
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(goalX);
-        vector.add(goalY);
+        vector.add(this.getx()-goalX);
+        vector.add(this.gety()-goalY);
 
-        return vector;//steerTowards(goalX,goalY);
+
+        return vector; //steerTowards(goalX,goalY);
     }
 
     private ArrayList<Double> alignment(Boid[] boids){
@@ -102,38 +85,21 @@ public class Boid {
             ArrayList<Double> vector = new ArrayList<Double>(2);
             vector.add(0.0);
             vector.add(0.0);
-        }
-
-        double velX = 0;
-        double velY = 0;
-
-        for (Boid b : boids) {
-            velX = velY + b.getVelocityX();
-            velY = velY + b.getVelocityY();
-        }//End forloop
-
-        if (boids.length > 0){
-            velX = velX/boids.length;
-            velY = velY/boids.length;
-
-            double length = Math.sqrt(Math.pow(velX, 2)+Math.pow(velY,2));
-            int maxspeed = 2;
-            velX = (velX/length)*maxspeed;
-            velY = (velY/length)*maxspeed;
-
-            velX = velX-this.getVelocityX();
-            velY = velY-this.getVelocityY();
-        }
-        else{
-            velX=0;
-            velY=0;
+            return vector;
         }
 
 
-        ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(velX);
-        vector.add(velY);
-
+        int x_tot = 0;
+        int y_tot = 0;
+        for (Boid b: boids){
+            x_tot+=b.getVelocityX();
+            y_tot+=b.getVelocityY();
+        }
+        double x_avg = x_tot/boids.length;
+        double y_avg = y_tot/boids.length;
+        ArrayList<Double> vector = new ArrayList<Double>();
+        vector.add(x_avg);
+        vector.add(y_avg);
         return vector;
     }
     /* --  End Boid Rules  -- */
@@ -146,25 +112,31 @@ public class Boid {
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-        this.setVelocityX(this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0));
-        this.setVelocityY(this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1));
+        int limit = 2;
+        double new_x =this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
+        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
+        double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
+        if (new_total_velocity>limit){
+            double ratio = limit/new_total_velocity;
+            new_x = new_x * ratio;
+            new_y = new_y * ratio;
+        }
+        this.setVelocityX(new_x);
+        this.setVelocityY(new_y);
 
 
-
-
-        //if (this.velocity>=6)velocity=2;
         this.setX( (int)( this.getx() + (this.getVelocityX()) ) );
         this.setY( (int)( this.gety() + (this.getVelocityY()) ) );
         //System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
         double w = Main.getBoidWindowWidth();
         double h = Main.getBoidWindowHeight();
-        if (this.getx() >= w-2){
+        if (this.getx() >= w){
             this.setX(0);
         }
-        else if (this.getx() <= 0) {
+        else if (this.getx() <=0) {
             this.setX((int)w);
         }
-        if (this.gety() >= h-2){
+        if (this.gety() >= h){
             this.setY(0);
         }
         else if (this.gety() <= 0){
