@@ -8,18 +8,19 @@ public class Boid {
     private int x;
     private int y;
     private double dir;
-    private double velocity;
+    private double velocityX, velocityY;
     private boolean alive;
 
-    public Boid(int x, int y, double dir, double velocity){
+    public Boid(int x, int y, double velocityX, double velocityY){
         this.x = x;
         this.y = y;
-        this.dir = dir; //radianer
-        this.velocity = velocity;
+        //this.dir = dir; //radianer
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
         this.alive = true;
     }
 
-    private double steerTowards(double goalX, double goalY){
+    /*private double steerTowards(double goalX, double goalY){
         double[] goalVector= new double[2];
         goalVector[0]=goalX-this.x;
         goalVector[1]=goalY-this.y;
@@ -30,10 +31,10 @@ public class Boid {
 
         return Math.atan2(currentVector[1],currentVector[0]) - Math.atan2(goalVector[1],goalVector[0]);
         //return Math.atan2(goalVector[1],goalVector[0]) - Math.atan2(currentVector[1],currentVector[0]);
-    }
+    }*/
 
     /* --  Start Boid Rules  -- */
-    private double cohesion(Boid[] boids){
+    private ArrayList<Double> cohesion(Boid[] boids){
         double goalX = 0;
         double goalY = 0;
 
@@ -47,14 +48,14 @@ public class Boid {
 
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(goalX);
-        vector.add(goalY);
+        vector.add(goalX-this.getx());
+        vector.add(goalY-this.gety());
 
 
-        return steerTowards(goalX,goalY);
+        return vector; //steerTowards(goalX,goalY);
     }
 
-    private double separation(Boid[] boids){
+    private ArrayList<Double> separation(Boid[] boids){
         double goalX = 0;
         double goalY = 0;
 
@@ -67,25 +68,28 @@ public class Boid {
         goalY = goalY/boids.length;
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(goalX);
-        vector.add(goalY);
+        vector.add(goalX-this.getx());
+        vector.add(goalY-this.gety());
 
-        return steerTowards(goalX,goalY);
+        return vector;//steerTowards(goalX,goalY);
     }
 
     private ArrayList<Double> alignment(Boid[] boids){
         double dDir = 0;
-        double dVel = 0;
+        double dVelX = 0;
+        double dVelY = 0;
         for (Boid b : boids) {
             dDir = dDir + b.getdir() - this.getdir();
-            dVel = dVel + b.getVelocity() - this.getVelocity();
+            dVelX = dVelX + b.getVelocityX() - this.getVelocityX();
+            dVelY = dVelY + b.getVelocityY() - this.getVelocityY();
         }//End forloop
         dDir = dDir/boids.length;
-        dVel = dVel/boids.length;
+        dVelX = dVelX/boids.length;
+        dVelY = dVelY/boids.length;
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(dDir);
-        vector.add(dVel);
+        vector.add(Math.sin(dDir)*dVelX);
+        vector.add(Math.cos(dDir)*dVelY);
 
         return vector;
     }
@@ -95,22 +99,22 @@ public class Boid {
 
     public void executeRules(ArrayList<Boid[]> neighbours, double w1, double w2, double w3){
         //The rules now use different arrays of boids to calculate positions
-        double cohesion = cohesion(neighbours.get(0));
-        double separation = separation(neighbours.get(1));
+        ArrayList<Double> cohesion = cohesion(neighbours.get(0));
+        ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
 
-        this.setVelocity(this.getVelocity()+w3*alignment.get(1));
+        this.setVelocityX(this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0));
+        this.setVelocityY(this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1));
 
-        this.setDir(this.getdir() + w1*cohesion + w2*separation + w3*alignment.get(0));
 
         //System.out.println("Direction: " +this.dir);
         //System.out.println("Velocity: " +this.velocity);
 
 
 
-        if (this.velocity>=6)velocity=2;
-        this.x=((int)(this.getx() + (this.getVelocity() * Math.sin(this.dir))));
-        this.y=((int)(this.gety() + (this.getVelocity() * Math.cos(this.dir))));
+        //if (this.velocity>=6)velocity=2;
+        this.setX( (int)( this.getx() + (this.getVelocityX()) ) );
+        this.setY( (int)( this.gety() + (this.getVelocityY()) ) );
         //System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
         double w = Main.getBoidWindowWidth();
         double h = Main.getBoidWindowHeight();
@@ -140,6 +144,8 @@ public class Boid {
     public double getdir(){return dir;}
 
     public void setDir(double d){this.dir = d;}
-    public double getVelocity(){return velocity;}
-    public void setVelocity(double velocity) {this.velocity = velocity;}
+    public double getVelocityX(){return velocityX;}
+    public void setVelocityX(double velocityX) {this.velocityX = velocityX;}
+    public double getVelocityY() {return velocityY;}
+    public void setVelocityY(double velocityY) {this.velocityY = velocityY;}
 }
