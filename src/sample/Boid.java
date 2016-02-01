@@ -112,7 +112,7 @@ public class Boid {
         this.x=((int)(this.getx() + (this.getVelocity() * Math.sin(this.dir))));
         this.y=((int)(this.gety() + (this.getVelocity() * Math.cos(this.dir))));
         System.out.println("BEFORE X: "+ this.x+"   Y: "+this.y);
-        int w= 858;
+        int w= Main.getBoidWindowHeight();
         int h = 657;
         if (this.getx()>=w){
             this.setX(0);
