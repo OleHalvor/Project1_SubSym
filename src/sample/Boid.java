@@ -60,18 +60,39 @@ public class Boid {
 
         double goalX = 0;
         double goalY = 0;
+        int count = boids.length;
 
         for (Boid b : boids){
-            goalX = goalX + this.getx() - b.getx();
-            goalY = goalY + this.gety() - b.gety();
+            double d = Math.sqrt( Math.pow(b.getx()-this.getx(),2) + Math.pow(b.gety()-this.gety(),2) );
+            double diffX = this.getx() - b.getx();
+            double diffY = this.gety() - b.gety();
+            double length = Math.sqrt(Math.pow(diffX, 2)+Math.pow(diffY,2));
+            diffX=(diffX/length)/d;
+            diffY=(diffY/length)/d;
+            goalX = goalX + diffX;
+            goalY = goalY + diffY;
+            count += 1;
+            }
+
+        if (count>0){
+            goalX = goalX/count;
+            goalY = goalY/count;
+
+        }
+        if (Math.sqrt(Math.pow(goalX, 2)+Math.pow(goalY,2)) > 0){
+            double length = Math.sqrt(Math.pow(goalX, 2)+Math.pow(goalY,2));
+            int maxspeed = 2;
+            goalX = (goalX/length)*maxspeed;
+            goalY = (goalY/length)*maxspeed;
+
+            goalX = goalX-this.getVelocityX();
+            goalY = goalY-this.getVelocityY();
         }
 
-        goalX = goalX/boids.length;
-        goalY = goalY/boids.length;
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(goalX-this.getx());
-        vector.add(goalY-this.gety());
+        vector.add(goalX);
+        vector.add(goalY);
 
         return vector;//steerTowards(goalX,goalY);
     }
@@ -85,20 +106,15 @@ public class Boid {
 
         double velX = 0;
         double velY = 0;
-        double neighbourdist = 50;
-        int count = 0
+
         for (Boid b : boids) {
-            double d = Math.abs(Math.sqrt(Math.pow((b.getx()-this.getx()),2) + Math.pow(b.gety()-this.gety(),2)));
-            if (d > 0 && d < neighbourdist){
-                velX = velY + b.getVelocityX();
-                velY = velY + b.getVelocityY();
-            }
-            count += 1;
+            velX = velY + b.getVelocityX();
+            velY = velY + b.getVelocityY();
         }//End forloop
 
-        if (count > 0){
-            velX = velX/count;
-            velY = velY/count;
+        if (boids.length > 0){
+            velX = velX/boids.length;
+            velY = velY/boids.length;
 
             double length = Math.sqrt(Math.pow(velX, 2)+Math.pow(velY,2));
             int maxspeed = 2;
@@ -108,11 +124,15 @@ public class Boid {
             velX = velX-this.getVelocityX();
             velY = velY-this.getVelocityY();
         }
+        else{
+            velX=0;
+            velY=0;
+        }
 
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(Math.sin()*dVelX);
-        vector.add(Math.cos()*dVelY);
+        vector.add(velX);
+        vector.add(velY);
 
         return vector;
     }
