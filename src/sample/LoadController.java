@@ -76,7 +76,6 @@ public class LoadController {
             }
         });
         System.out.println(profiles);
-        profCombo.getItems().add("ger");
         cohesionField.setText((Double.toString(Logic.getCohesionWeight())));
         separationField.setText((Double.toString(Logic.getSeparationWeight())));
         alignmentField.setText((Double.toString(Logic.getAlignmentWeight())));

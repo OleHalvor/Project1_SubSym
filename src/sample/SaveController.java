@@ -29,8 +29,7 @@ public class SaveController {
     private TextField radiusField;
     @FXML
     private Button saveBtn;
-    @FXML
-    private Button cancelBtn;
+
 
 
     private Main Main;
@@ -52,13 +51,6 @@ public class SaveController {
                 Node  source = (Node)  event.getSource();
                 Stage stage  = (Stage) source.getScene().getWindow();
                 stage.close();
-            }
-        });
-        cancelBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("knapp");
-
             }
         });
 
