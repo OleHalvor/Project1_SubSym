@@ -105,16 +105,16 @@ public class Boid {
     /* --  End SIMPLE Boid Rules  -- */
 
     /* -- Start Collision Avoidance -- */
-    /*private double distance(int x1, int y1, Obstacle o){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
+    private double distance(int x1, int y1, int x2, int y2){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
 
     private Boolean lineIntersectsCircle(double[] ahead,double[] ahead2, Obstacle o){
-        if(distance(o.getx(), o.gety(), ahead[0], ahead[1]) <= o.getradius() || distance(o.getx(), o.gety(), ahead2[0], ahead2[1]) <= o.getradius()){
+        if(distance(o.getx(), o.gety(), (int)ahead[0], (int)ahead[1]) <= o.getradius() || distance(o.getx(), o.gety(), (int)ahead2[0], (int)ahead2[1]) <= o.getradius()){
             return true;
         }
         return false;
     }
 
-    private Obstacle findClosestObstacle(double[] ahead,double[] ahead2, Obstacle[] obstacles){
+    private Obstacle findClosestObstacle(double[] ahead, double[] ahead2, Obstacle[] obstacles){
         Obstacle closest = null;
 
         for (int i=0; i<obstacles.length; i++){
@@ -131,33 +131,52 @@ public class Boid {
     }
 
     private ArrayList<Double> collisionAvoidance(Obstacle[] obstacles){
-        ahead = ...;
-        ahead2 = ...;
-
+        double lentgh = Math.sqrt( Math.pow(this.getVelocityX(),2)+Math.pow(this.getVelocityY(),2) );
+        int maxSeeAhead = 20;
+        Double[] ahead;
+        Double[] ahead2;
+        /* sett in disse verdier i ahead 1 0g 2.
+        ahead[0] = this.getx()+( (this.getVelocityX()/lentgh)*maxSeeAhead );
+        ahead[1] = this.gety()+( (this.getVelocityY()/lentgh)*maxSeeAhead );
+        ahead2[0] = this.getx()+( (this.getVelocityX()/lentgh)*maxSeeAhead*0.5 );
+        ahead2[1] = this.gety()+( (this.getVelocityY()/lentgh)*maxSeeAhead*0.5 );
+        */
         Obstacle closest = findClosestObstacle(ahead, ahead2, obstacles);
 
         double avoidanceX = 0;
         double avoidanceY = 0;
 
         if (closest != null){
-            avoidanceX = avoidanceX - closest.getx();
-            avoidanceY = avoidanceY - closest.gety();
+            avoidanceX = ahead[0] - closest.getx();
+            avoidanceY = ahead[1] - closest.gety();
         }
-    }*/
+        else {
+            avoidanceX = 0;
+            avoidanceY = 0;
+        }
+
+        ArrayList<Double> vector = new ArrayList<Double>();
+        vector.add(avoidanceX);
+        vector.add(avoidanceY);
+        return vector;
+    }
     /* -- End Collision Avoidance -- */
 
     /* -- This method executes all the rules of a boid -- */
-    public void executeRules(ArrayList<Boid[]> neighbours, double w1, double w2, double w3){
+    public void executeRules(ArrayList<Boid[]> neighbours, Obstacle[] obstacles, double w1, double w2, double w3){
         //The rules now use different arrays of boids to calculate positions
         ArrayList<Double> cohesion = cohesion(neighbours.get(0));
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
+        ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
 
         int limit = 4;
         double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
         double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
+        //double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0);
+        //double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
-        if (new_total_velocity>limit){
+        if (new_total_velocity > limit){
             double ratio = limit/new_total_velocity;
             new_x = new_x * ratio;
             new_y = new_y * ratio;
