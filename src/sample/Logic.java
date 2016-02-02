@@ -12,6 +12,7 @@ public class Logic extends Thread {
     public static double weight1 = 0.001;
     public static double weight2 = 0.3;
     public static double weight3 = 0.1;
+    public static double weight4 = 0.3;
     public static int n_radius = 300;
 
 
@@ -24,6 +25,7 @@ public class Logic extends Thread {
     public static double getAlignmentWeight(){
         return weight3;
     }
+    public static double getCollisionAvoidanceWeight(){ return weight4; }
     public static int getRadius(){
         return n_radius;
     }
@@ -80,7 +82,8 @@ public class Logic extends Thread {
                 neighbours.add(neighbours(boids,boids[i],n_radius));
                 neighbours.add(neighbours(boids,boids[i],n_radius/20));
                 neighbours.add(neighbours(boids,boids[i],n_radius/2));
-                boids[i].executeRules(neighbours, weight1, weight2, weight3);
+                //boids[i].executeRules(neighbours, weight1, weight2, weight3);
+                boids[i].executeRules(neighbours, obstacles, weight1, weight2, weight3, weight4);
                 neighbours = new ArrayList<Boid[]>();
             }
             try {
