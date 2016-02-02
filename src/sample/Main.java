@@ -189,6 +189,8 @@ public class Main extends Application {
             Stage stage = new Stage();
             stage.setTitle("Load Profile");
             stage.setScene(new Scene(root));
+            stage.setX(0);
+            stage.setY(0);
             stage.show();
             controller2.setMainCOntroller(controller);
         } catch (IOException e) {
@@ -210,6 +212,8 @@ public class Main extends Application {
             Stage stage = new Stage();
             stage.setTitle("Save Profile");
             stage.setScene(new Scene(root));
+            stage.setX(0);
+            stage.setY(150);
             stage.show();
             } catch (IOException e) {
                 e.printStackTrace();

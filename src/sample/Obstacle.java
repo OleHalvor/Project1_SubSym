@@ -14,7 +14,6 @@ public class Obstacle {
         this.x = x;
         this.y = y;
         this.radius = radius;
-
     }
 
     public int getX() {

@@ -169,7 +169,7 @@ public class Boid {
         ArrayList<Double> alignment = alignment(neighbours.get(2));
         ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
 
-        int limit = 2;
+        int limit = 7;
         //double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0);
         //double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1);
         double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0);

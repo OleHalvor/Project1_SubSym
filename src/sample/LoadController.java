@@ -57,6 +57,7 @@ public class LoadController {
 
     public void initialize() {
         profiles = Main.getProfiles();
+        profiles.add(new Profile("Default",0.001,0.3,0.1,300));
         for (Profile p: profiles){
             profCombo.getItems().add(p.getName());
         }
