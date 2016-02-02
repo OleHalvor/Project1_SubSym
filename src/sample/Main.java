@@ -3,14 +3,17 @@ package sample;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurve;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -21,6 +24,7 @@ public class Main extends Application {
     private Circle[] boidsCircle;
     private static Boid[] boids;
     private BorderPane rootLayout;
+    private Stage profileWindow;
 
     public static double getBoidWindowWidth(){
         return boidWindow.getWidth();
@@ -113,6 +117,7 @@ public class Main extends Application {
     /**
      * Initializes the root layout.
      */
+    private Controller controller;
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
@@ -120,11 +125,8 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("sample.fxml"));
             rootLayout = (BorderPane) loader.load();
             // Give the controller access to the main app.
-            Controller controller = loader.getController();
+            controller = loader.getController();
             controller.setMainApp(this);
-
-
-
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             scene.getStylesheets().add("sample/styl.css");
@@ -143,6 +145,64 @@ public class Main extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+
+    VBox root;
+    public static ArrayList<Profile> profiles = new ArrayList<Profile>();
+
+
+
+
+    public static ArrayList<Profile> getProfiles(){
+        return profiles;
+    }
+    public static void addProfile(Profile profile){
+        profiles.add(profile);
+    }
+    public void loadProfile(){
+
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("loadWeights.fxml"));
+            root = (VBox) loader.load();
+            // Give the controller access to the main app.
+            LoadController controller2 = loader.getController();
+            controller2.profiles = profiles;
+            controller2.setMainApp(this);
+            loader.setController(controller);
+            // Show the scene containing the root layout.
+
+            Stage stage = new Stage();
+            stage.setTitle("Load Profile");
+            stage.setScene(new Scene(root));
+            stage.show();
+            controller2.setMainCOntroller(controller);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void saveProfile(){
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("saveWeights.fxml"));
+            root = (VBox) loader.load();
+            // Give the controller access to the main app.
+            SaveController controller = loader.getController();
+            controller.setMainApp(this);
+            loader.setController(controller);
+            // Show the scene containing the root layout.
+
+            Stage stage = new Stage();
+            stage.setTitle("Save Profile");
+            stage.setScene(new Scene(root));
+            stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 /**
  * Created by Olli on 25.01.2016.
@@ -36,7 +37,15 @@ public class Controller {
     private TextField nBoidsField;
     @FXML
     private Button startBtn;
+    @FXML
+    private Button loadProfBtn;
+    @FXML
+    private Button saveProfBtn;
 
+    public void setSliderWeight1(double w){sliderWeight1.setValue(w);}
+    public void setSliderWeight2(double w){sliderWeight2.setValue(w);}
+    public void setSliderWeight3(double w){sliderWeight3.setValue(w);}
+    public void setRadSlider(double r){radSlider.setValue(r);}
 
     // Reference to the main application.
     private Main Main;
@@ -65,6 +74,7 @@ public class Controller {
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 startBtn.setDisable(true);
                 resetBtn.setDisable(false);
                 stopBtn.setDisable(false);
@@ -136,6 +146,19 @@ public class Controller {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Logic.setN_radius((int)radSlider.getValue());
                 System.out.println("Radius: "+radSlider.getValue());
+            }
+        });
+        loadProfBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.loadProfile();
+
+            }
+        });
+        saveProfBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.saveProfile();
             }
         });
     }

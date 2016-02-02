@@ -14,6 +14,21 @@ public class Logic extends Thread {
     public static double weight3 = 0.1;
     public static int n_radius = 300;
 
+
+    public static double getCohesionWeight(){
+        return weight1;
+    }
+    public static double getSeparationWeight(){
+        return weight2;
+    }
+    public static double getAlignmentWeight(){
+        return weight3;
+    }
+    public static int getRadius(){
+        return n_radius;
+    }
+
+
     private static ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     private static ArrayList<Predator> predators = new ArrayList<Predator>();
 

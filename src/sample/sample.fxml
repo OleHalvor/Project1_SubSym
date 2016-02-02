@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -38,6 +39,16 @@
             <Button fx:id="remObsBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" text="Remove obs" />
             <Button fx:id="addPredBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Add pred" />
             <Button fx:id="remPredBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Remove preds" />
+            <Button fx:id="saveProfBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Save Profile">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="loadProfBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="188.0" text="Load Profile">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
          </children></VBox>
    </left>
 </BorderPane>
