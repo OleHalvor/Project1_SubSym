@@ -19,7 +19,7 @@
       <TextField fx:id="alignmentField" disable="true" editable="false" text="1" />
       <Label text="Radius" />
       <TextField fx:id="radiusField" disable="true" editable="false" text="1" />
-      <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="283.0" text="Save Settings">
+      <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="283.0" text="Save Profile">
          <VBox.margin>
             <Insets top="40.0" />
          </VBox.margin>
