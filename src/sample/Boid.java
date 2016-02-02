@@ -108,7 +108,7 @@ public class Boid {
     private double distance(double x1, double y1, double x2, double y2){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
 
     private Boolean lineIntersectsCircle(ArrayList<Double> ahead, ArrayList<Double> ahead2, Obstacle o){
-        if(distance(o.getx(), o.gety(), ahead.get(0), ahead.get(1)) <= o.getradius() || distance(o.getx(), o.gety(), ahead2.get(0), ahead2.get(1)) <= o.getradius()){
+        if(distance(o.getX(), o.getY(), ahead.get(0), ahead.get(1)) <= o.getRadius() || distance(o.getX(), o.getY(), ahead2.get(0), ahead2.get(1)) <= o.getRadius()){
             return true;
         }
         return false;
@@ -122,8 +122,8 @@ public class Boid {
             boolean collision = lineIntersectsCircle(ahead, ahead2, currentObstacle);
 
             if(collision && ( closest==null ||
-                    distance(this.getx(), this.gety(), currentObstacle.getx(), currentObstacle.gety()) <
-                    distance(this.getx(), this.gety(), closest.getx(), closest.gety()) ) ){
+                    distance(this.getx(), this.gety(), currentObstacle.getX(), currentObstacle.getY()) <
+                    distance(this.getx(), this.gety(), closest.getX(), closest.getY()) ) ){
                 closest = currentObstacle;
             }
         }
@@ -146,8 +146,8 @@ public class Boid {
         double avoidanceY = 0;
 
         if (closest != null){
-            avoidanceX = ahead.get(0) - closest.getx();
-            avoidanceY = ahead.get(1) - closest.gety();
+            avoidanceX = ahead.get(0) - closest.getX();
+            avoidanceY = ahead.get(1) - closest.getY();
         }
         else {
             avoidanceX = 0;

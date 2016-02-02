@@ -55,6 +55,21 @@ public class Main extends Application {
         boidWindow.setId("bw");
     }
 
+
+    private static ArrayList<Circle> obstacleCircles = new ArrayList<Circle>();
+
+    public static void addObstacleCircle(int x, int y, int radius){
+        Circle obstacle = new Circle(x,y,radius,Color.web("Blue", 1));
+        obstacleCircles.add(obstacle);
+        boidWindow.getChildren().add(obstacle);
+    }
+
+    public static void removeObstacles(){
+        for (Circle c: obstacleCircles){
+            c.setRadius(0);
+        }
+    }
+
     public void stopSim(){
         for (int i=0; i<boidsCircle.length; i++){
             boidsCircle[i].setRadius(0.01);
@@ -150,10 +165,6 @@ public class Main extends Application {
 
     VBox root;
     public static ArrayList<Profile> profiles = new ArrayList<Profile>();
-
-
-
-
     public static ArrayList<Profile> getProfiles(){
         return profiles;
     }

@@ -34,12 +34,19 @@ public class Logic extends Thread {
     private static ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     private static ArrayList<Predator> predators = new ArrayList<Predator>();
 
+
+
     public static void addObstacle(){
         System.out.println("Obstacle added");
+        Random random = new Random();
+        int w = (int) Main.getBoidWindowWidth();
+        int h = (int) Main.getBoidWindowHeight();
+        Main.addObstacleCircle(random.nextInt(w),random.nextInt(h),random.nextInt(10)+10);
     }
 
     public static void removeObstacles(){
         System.out.println("Obstacles removed");
+        Main.removeObstacles();
 
     }
 
@@ -83,7 +90,9 @@ public class Logic extends Thread {
                 neighbours.add(neighbours(boids,boids[i],n_radius/20));
                 neighbours.add(neighbours(boids,boids[i],n_radius/2));
                 //boids[i].executeRules(neighbours, weight1, weight2, weight3);
-                boids[i].executeRules(neighbours, obstacles, weight1, weight2, weight3, weight4);
+                Obstacle[] o_array = new Obstacle[obstacles.size()];
+                o_array = obstacles.toArray(o_array);
+                boids[i].executeRules(neighbours, o_array, weight1, weight2, weight3, weight4);
                 neighbours = new ArrayList<Boid[]>();
             }
             try {
