@@ -9,27 +9,27 @@ public class Obstacle {
     private int y;
     private double radius;
 
-    public int getX() {
+    public int getx() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setx(int x) {
         this.x = x;
     }
 
-    public int getY() {
+    public int gety() {
         return y;
     }
 
-    public void setY(int y) {
+    public void sety(int y) {
         this.y = y;
     }
 
-    public double getRadius() {
+    public double getradius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    public void setradius(double radius) {
         this.radius = radius;
     }
 }
