@@ -9,7 +9,15 @@ public class Obstacle {
     private int y;
     private double radius;
 
-    public int getx() {
+
+    public Obstacle(int x, int y, double radius){
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+
+    }
+
+    public int getX() {
         return x;
     }
 
@@ -17,7 +25,7 @@ public class Obstacle {
         this.x = x;
     }
 
-    public int gety() {
+    public int getY() {
         return y;
     }
 
@@ -25,7 +33,7 @@ public class Obstacle {
         this.y = y;
     }
 
-    public double getradius() {
+    public double getRadius() {
         return radius;
     }
 

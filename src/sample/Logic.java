@@ -41,12 +41,21 @@ public class Logic extends Thread {
         Random random = new Random();
         int w = (int) Main.getBoidWindowWidth();
         int h = (int) Main.getBoidWindowHeight();
-        Main.addObstacleCircle(random.nextInt(w),random.nextInt(h),random.nextInt(10)+10);
+
+        int obstacleX = random.nextInt(w);
+        int obstacleY = random.nextInt(h);
+        int obstacleRadius = random.nextInt(30)+10;
+
+        Obstacle obstacle = new Obstacle(obstacleX,obstacleY,obstacleRadius);
+        obstacles.add(obstacle);
+
+        Main.addObstacleCircle(obstacleX,obstacleY,obstacleRadius-5);
     }
 
     public static void removeObstacles(){
         System.out.println("Obstacles removed");
         Main.removeObstacles();
+        obstacles = new ArrayList<Obstacle>();
 
     }
 
