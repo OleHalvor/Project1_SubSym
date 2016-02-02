@@ -49,7 +49,7 @@ public class Logic extends Thread {
         Obstacle obstacle = new Obstacle(obstacleX,obstacleY,obstacleRadius);
         obstacles.add(obstacle);
 
-        Main.addObstacleCircle(obstacleX,obstacleY,obstacleRadius-5);
+        Main.addObstacleCircle(obstacleX,obstacleY,obstacleRadius-9);
     }
 
     public static void removeObstacles(){

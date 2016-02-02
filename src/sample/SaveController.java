@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
@@ -51,6 +53,20 @@ public class SaveController {
                 Node  source = (Node)  event.getSource();
                 Stage stage  = (Stage) source.getScene().getWindow();
                 stage.close();
+            }
+        });
+        nameField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    Profile profile = new Profile(nameField.getText(),Logic.getCohesionWeight(),Logic.getSeparationWeight(), Logic.getAlignmentWeight(), Logic.getRadius());
+                    Main.addProfile(profile);
+                    System.out.println(Main.getProfiles());
+                    System.out.println("knapp");
+                    Node  source = (Node)  event.getSource();
+                    Stage stage  = (Stage) source.getScene().getWindow();
+                    stage.close();
+                }
             }
         });
 
