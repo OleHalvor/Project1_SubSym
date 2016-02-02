@@ -9,6 +9,13 @@ public class Obstacle {
     private int y;
     private double radius;
 
+    public Obstacle(int x, int y, double radius){
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+
+    }
+
     public int getX() {
         return x;
     }
