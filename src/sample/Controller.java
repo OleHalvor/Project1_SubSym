@@ -184,6 +184,8 @@ public class Controller {
         profiles.add(new Profile("In Place",0.2,0.1,0,300));
         profiles.add(new Profile("Black hole",1,0,0,300));
         profiles.add(new Profile("Spread Out",0,0.1,0,300));
+        profiles.add(new Profile("Align",0,0.07,0.04,300));
+        profiles.add(new Profile("Small Groups",0.01224,0.3,0,86));
         for (Profile p: profiles){
             loadCombo.getItems().add(p.getName());
         }
