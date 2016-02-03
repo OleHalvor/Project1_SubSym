@@ -78,6 +78,7 @@ public class Controller {
         resetBtn.setDisable(true);
         stopBtn.setDisable(true);
 
+
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -88,6 +89,7 @@ public class Controller {
                 Main.startSim((Integer.parseInt(nBoidsField.getText())));
             }
         });
+        stopBtn.setVisible(false);
         stopBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -99,9 +101,11 @@ public class Controller {
                 Logic.removePredators();
             }
         });
+        resetBtn.setVisible(false);
         resetBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 Main.stopSim();
                 Logic.removeObstacles();
                 Logic.removePredators();
@@ -160,6 +164,7 @@ public class Controller {
                 System.out.println("Radius: "+radSlider.getValue());
             }
         });
+        loadProfBtn.setVisible(false);
         loadProfBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

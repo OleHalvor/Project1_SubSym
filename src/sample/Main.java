@@ -155,8 +155,8 @@ public class Main extends Application {
                     lines[i].setStartX(boids[i].getx());
                     lines[i].setStartY(boids[i].gety());
 
-                    lines[i].setEndX((boids[i].getx()+3*boids[i].getVelocityX()));
-                    lines[i].setEndY((boids[i].gety()+3*boids[i].getVelocityY()));
+                    lines[i].setEndX((boids[i].getx()+2.5*boids[i].getVelocityX()));
+                    lines[i].setEndY((boids[i].gety()+2.5*boids[i].getVelocityY()));
                 }
                 for (int i=0; i<predatorCircles.size(); i++){
                     predatorCircles.get(i).setLayoutX(Logic.getPredators().get(i).getX());
