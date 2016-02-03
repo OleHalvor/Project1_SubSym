@@ -83,11 +83,15 @@ public class Main extends Application {
         }
         predatorCircles = new ArrayList<Circle>();
 
+
     }
 
     public void stopSim(){
+        for (int i=0; i<lines.length; i++){
+            lines[i].setVisible(false);
+        }
         for (int i=0; i<boidsCircle.length; i++){
-            boidsCircle[i].setRadius(0.01);
+            boidsCircle[i].setVisible(false);
         }
         try {
             logic.join();

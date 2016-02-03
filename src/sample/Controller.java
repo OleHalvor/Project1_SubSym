@@ -89,7 +89,7 @@ public class Controller {
                 Main.startSim((Integer.parseInt(nBoidsField.getText())));
             }
         });
-        stopBtn.setVisible(false);
+        //stopBtn.setVisible(false);
         stopBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -101,7 +101,7 @@ public class Controller {
                 Logic.removePredators();
             }
         });
-        resetBtn.setVisible(false);
+        //resetBtn.setVisible(false);
         resetBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
