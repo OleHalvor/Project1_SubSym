@@ -9,8 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.CubicCurve;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ public class Main extends Application {
     private static Pane boidWindow;
     private Circle[] boidsCircle;
     private static Boid[] boids;
+
     private BorderPane rootLayout;
     private Stage profileWindow;
 
@@ -57,6 +57,7 @@ public class Main extends Application {
 
 
     private static ArrayList<Circle> obstacleCircles = new ArrayList<Circle>();
+    private static ArrayList<Circle> predatorCircles = new ArrayList<Circle>();
 
     public static void addObstacleCircle(int x, int y, int radius){
         Circle obstacle = new Circle(x,y,radius,Color.web("Blue", 1));
@@ -70,6 +71,20 @@ public class Main extends Application {
         }
     }
 
+    public static void addPredatorCircle(int x, int y, int radius){
+        Circle predator = new Circle(0,0,radius,Color.web("Brown",1));
+        predatorCircles.add(predator);
+        boidWindow.getChildren().add(predator);
+    }
+
+    public static void removePredators(){
+        for (Circle c: predatorCircles){
+            c.setRadius(0);
+        }
+        predatorCircles = new ArrayList<Circle>();
+
+    }
+
     public void stopSim(){
         for (int i=0; i<boidsCircle.length; i++){
             boidsCircle[i].setRadius(0.01);
@@ -81,14 +96,20 @@ public class Main extends Application {
         }
 
     }
+    private static Line[] lines;
+
     Logic logic = new Logic();
     public void startSim(int nBoids){
-        CubicCurve curve1 = new CubicCurve( 125, 150, 125, 225, 325, 225, 325, 300);
-        curve1.setStroke(Color.BLACK);
-        curve1.setStrokeWidth(1);
-        curve1.setFill( null);
-        //boidWindow.getChildren().add(curve1);
 
+        Line line = new Line();
+        line.setStartX(100.0);
+        line.setStartY(100.0);
+        line.setEndX(100.0);
+        line.setEndY(200.0);
+        //boidWindow.getChildren().add(line);
+
+
+        lines = new Line[nBoids];
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
         final Random random = new Random();
@@ -100,11 +121,17 @@ public class Main extends Application {
             double height = random.nextDouble()*boidWindow.getHeight();
             int h = (int) height;
             boids[i] = new Boid(0,0,random.nextInt(10)-5,random.nextInt(10)-5);
+
         }
 
         for (int i=0; i<nBoids; i++) {
             boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),2,Color.web("Black", 1));
             boidWindow.getChildren().add(boidsCircle[i]);
+            //lines[i] = new Line(boids[i].getx(),boids[i].gety(),boids[i].getVelocityX(),boids[i].getVelocityY());
+            lines[i] = new Line();
+            boidWindow.getChildren().add(lines[i]);
+
+
         }
 
         Logic logic = new Logic();
@@ -117,6 +144,7 @@ public class Main extends Application {
             boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
+
         new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -124,7 +152,18 @@ public class Main extends Application {
                 for (int i=0; i<boids.length; i++){
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
+                    lines[i].setStartX(boids[i].getx());
+                    lines[i].setStartY(boids[i].gety());
+
+                    lines[i].setEndX((boids[i].getx()+3*boids[i].getVelocityX()));
+                    lines[i].setEndY((boids[i].gety()+3*boids[i].getVelocityY()));
                 }
+                for (int i=0; i<predatorCircles.size(); i++){
+                    predatorCircles.get(i).setLayoutX(Logic.getPredators().get(i).getX());
+                    predatorCircles.get(i).setLayoutY(Logic.getPredators().get(i).getY());
+                }
+
+
             }
         }.start();
     }
@@ -162,6 +201,10 @@ public class Main extends Application {
         return primaryStage;
     }
 
+    public void updateCombo(){
+        controller.profiles = Main.profiles;
+        controller.updateCombo();
+    }
 
     VBox root;
     public static ArrayList<Profile> profiles = new ArrayList<Profile>();

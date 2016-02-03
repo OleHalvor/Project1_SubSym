@@ -52,6 +52,7 @@ public class SaveController {
                 System.out.println("knapp");
                 Node  source = (Node)  event.getSource();
                 Stage stage  = (Stage) source.getScene().getWindow();
+                Main.updateCombo();
                 stage.close();
             }
         });
@@ -65,6 +66,7 @@ public class SaveController {
                     System.out.println("knapp");
                     Node  source = (Node)  event.getSource();
                     Stage stage  = (Stage) source.getScene().getWindow();
+                    Main.updateCombo();
                     stage.close();
                 }
             }

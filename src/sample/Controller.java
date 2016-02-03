@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Olli on 25.01.2016.
  */
@@ -42,6 +44,8 @@ public class Controller {
     private Button loadProfBtn;
     @FXML
     private Button saveProfBtn;
+    @FXML
+    private ComboBox loadCombo;
 
     public void setSliderWeight1(double w){sliderWeight1.setValue(w);}
     public void setSliderWeight2(double w){sliderWeight2.setValue(w);}
@@ -62,6 +66,8 @@ public class Controller {
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
+    ArrayList<Profile> profiles = new ArrayList<Profile>();
+
     @FXML
     private void initialize() {
         sliderWeight1.setValue(Logic.weight1);
@@ -90,14 +96,17 @@ public class Controller {
                 stopBtn.setDisable(true);
                 Main.stopSim();
                 Logic.removeObstacles();
+                Logic.removePredators();
             }
         });
         resetBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Main.stopSim();
-                Main.startSim(Integer.parseInt(nBoidsField.getText()));
                 Logic.removeObstacles();
+                Logic.removePredators();
+                Main.startSim(Integer.parseInt(nBoidsField.getText()));
+
             }
         });
         addObsBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -164,6 +173,40 @@ public class Controller {
                 Main.saveProfile();
             }
         });
+
+        profiles = Main.getProfiles();
+        profiles.add(new Profile("Default",0.0054378,0.3,0.2,300));
+        profiles.add(new Profile("In Place",0.2,0.1,0,300));
+        profiles.add(new Profile("Black hole",1,0,0,300));
+        profiles.add(new Profile("Spread Out",0,0.1,0,300));
+        for (Profile p: profiles){
+            loadCombo.getItems().add(p.getName());
+        }
+        loadCombo.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                for (Profile p: profiles){
+                    if (p.getName().equals(loadCombo.getValue())){
+                        Logic.weight1=p.getWeight1();
+                        Logic.weight2=p.getWeight2();
+                        Logic.weight3=p.getWeight3();
+                        Logic.n_radius=p.getRadius();
+                        setSliderWeight1(p.getWeight1());
+                        setSliderWeight2(p.getWeight2());
+                        setSliderWeight3(p.getWeight3());
+                        setRadSlider(p.getRadius());
+                    }
+                }
+
+                System.out.println("Changed comobxo");
+            }
+        });
+    }
+    public void updateCombo(){
+        loadCombo.getItems().removeAll();
+        loadCombo.getItems().clear();
+        for (Profile p: profiles){
+            loadCombo.getItems().add(p.getName());
+        }
     }
 
     public void setMainApp(Main Main) {
