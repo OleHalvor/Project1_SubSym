@@ -82,8 +82,6 @@ public class Main extends Application {
             c.setRadius(0);
         }
         predatorCircles = new ArrayList<Circle>();
-
-
     }
 
     public void stopSim(){
