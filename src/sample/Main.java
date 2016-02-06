@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -24,9 +25,10 @@ public class Main extends Application {
     private static Pane boidWindow;
     private Circle[] boidsCircle;
     private static Boid[] boids;
-
     private BorderPane rootLayout;
     private Stage profileWindow;
+
+
 
     public static double getBoidWindowWidth(){
         return boidWindow.getWidth();
@@ -110,6 +112,7 @@ public class Main extends Application {
         return input;
     }
 
+
     Logic logic = new Logic();
     public void startSim(int nBoids){
 
@@ -156,6 +159,16 @@ public class Main extends Application {
             boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
+        boidWindow.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println(event.getButton().toString());
+                if (event.getButton().toString().equals("PRIMARY")){
+                    Logic.addObstacle((int)event.getX(),(int)event.getY());
+                }
+            }
+        });
+
 
 
         new AnimationTimer() {
@@ -201,6 +214,7 @@ public class Main extends Application {
             Scene scene = new Scene(rootLayout);
 
             scene.getStylesheets().add("sample/styl.css");
+
 
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override

@@ -74,6 +74,21 @@ public class Logic extends Thread {
         Main.addObstacleCircle(obstacleX,obstacleY,obstacleRadius-7);
     }
 
+    public static void addObstacle(int x, int y){
+        System.out.println("Obstacle added");
+        Random random = new Random();
+
+        int obstacleRadius = random.nextInt(20)+10;
+        int obstacleX = x;
+        int obstacleY = y;
+
+
+        Obstacle obstacle = new Obstacle(obstacleX,obstacleY,obstacleRadius);
+        obstacles.add(obstacle);
+
+        Main.addObstacleCircle(obstacleX,obstacleY,obstacleRadius-7);
+    }
+
     public static void removeObstacles(){
         System.out.println("Obstacles removed");
         Main.removeObstacles();
@@ -179,7 +194,7 @@ public class Logic extends Thread {
         Boid[] boids = Main.getBoids();
         while (true) {
             for (int i = 0; i < boids.length; i++) {
-                if(i==0&&Main.getInput().size()!=0 && moveBoid==true) {
+                if(i==0&&Main.getInput().size()!=0 && moveBoid) {
                     ArrayList<String> inp = Main.getInput();
                     if (inp.contains("W")) boids[i].setVelocityY(boids[i].getVelocityY() - 5);
                     if (inp.contains("A")) boids[i].setVelocityX(boids[i].getVelocityX() - 5);
@@ -201,7 +216,7 @@ public class Logic extends Thread {
 
             }
             for (int i=0; i<predators.size(); i++){
-                if(i==0&&Main.getInput().size()!=0 && movePred==true) {
+                if(i==0&&Main.getInput().size()!=0 && movePred) {
                     ArrayList<String> inp = Main.getInput();
                     if (inp.contains("W")) predators.get(i).setY(predators.get(i).getY() - 5);
                     if (inp.contains("A")) predators.get(i).setX(predators.get(i).getX() - 5);
