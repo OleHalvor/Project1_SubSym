@@ -3,17 +3,36 @@ package sample;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  * Created by Ole on 22.01.2016.
  */
 public class Logic extends Thread {
 
-    public static double weight1 = 0.001;
-    public static double weight2 = 0.3;
-    public static double weight3 = 0.1;
+    public static double weight1 = 0.0027;
+    public static double weight2 = 0.2053;
+    public static double weight3 = 0.2;
     public static double weight4 = 0.3;
     public static int n_radius = 300;
+    private static boolean movePred = true;
+    private static boolean moveBoid = false;
+
+    public static void toggeMovePred(){
+        if (movePred==true)movePred=false;
+        else movePred =true;
+    }
+    public static void toggeMoveBoid(){
+        if (moveBoid==true)moveBoid=false;
+        else moveBoid =true;
+    }
+
+    public static boolean getMovePred(){
+        return movePred;
+    }
+    public static boolean getMoveBoid(){
+        return moveBoid;
+    }
 
 
     public static double getCohesionWeight(){
@@ -160,26 +179,45 @@ public class Logic extends Thread {
         Boid[] boids = Main.getBoids();
         while (true) {
             for (int i = 0; i < boids.length; i++) {
-                neighbours.add(neighbours(boids,boids[i],n_radius));
-                neighbours.add(neighbours(boids,boids[i],n_radius/20));
-                neighbours.add(neighbours(boids,boids[i],n_radius/2));
-                Predator[] pred_array = new Predator[predators.size()];
-                pred_array = predators.toArray(pred_array);
-                //boids[i].executeRules(neighbours, weight1, weight2, weight3);
-                Obstacle[] o_array = new Obstacle[obstacles.size()];
-                o_array = obstacles.toArray(o_array);
+                if(i==0&&Main.getInput().size()!=0 && moveBoid==true) {
+                    ArrayList<String> inp = Main.getInput();
+                    if (inp.contains("W")) boids[i].setVelocityY(boids[i].getVelocityY() - 5);
+                    if (inp.contains("A")) boids[i].setVelocityX(boids[i].getVelocityX() - 5);
+                    if (inp.contains("S")) boids[i].setVelocityY(boids[i].getVelocityY() + 5);
+                    if (inp.contains("D")) boids[i].setVelocityX(boids[i].getVelocityX() + 5);
+                }
+                    neighbours.add(neighbours(boids, boids[i], n_radius));
+                    neighbours.add(neighbours(boids, boids[i], n_radius / 20));
+                    neighbours.add(neighbours(boids, boids[i], n_radius / 2));
+                    Predator[] pred_array = new Predator[predators.size()];
+                    pred_array = predators.toArray(pred_array);
+                    //boids[i].executeRules(neighbours, weight1, weight2, weight3);
+                    Obstacle[] o_array = new Obstacle[obstacles.size()];
+                    o_array = obstacles.toArray(o_array);
 
 
-                boids[i].executeRules(neighbours, o_array, (pred_neighbours(pred_array,boids[i],n_radius/8)), weight1, weight2, weight3, weight4);
-                neighbours = new ArrayList<Boid[]>();
+                    boids[i].executeRules(neighbours, o_array, (pred_neighbours(pred_array, boids[i], n_radius / 8)), weight1, weight2, weight3, weight4);
+                    neighbours = new ArrayList<Boid[]>();
+
             }
             for (int i=0; i<predators.size(); i++){
-                Predator[] pred_array = new Predator[predators.size()];
-                pred_array = predators.toArray(pred_array);
-                predators.get(i).executeRules(pred_boid_neighbours(boids,predators.get(i),200),pred_neighbours(pred_array,predators.get(i),25),obstacles);
-                //predators.get(i).executeRules(pred_boid_neighbours(boids,predators.get(i),200),pred_array,obstacles);
-                System.out.println("updating predator #"+i);
+                if(i==0&&Main.getInput().size()!=0 && movePred==true) {
+                    ArrayList<String> inp = Main.getInput();
+                    if (inp.contains("W")) predators.get(i).setY(predators.get(i).getY() - 5);
+                    if (inp.contains("A")) predators.get(i).setX(predators.get(i).getX() - 5);
+                    if (inp.contains("S")) predators.get(i).setY(predators.get(i).getY() + 5);
+                    if (inp.contains("D")) predators.get(i).setX(predators.get(i).getX() + 5);
+                }
+                else {
+                    Predator[] pred_array = new Predator[predators.size()];
+                    pred_array = predators.toArray(pred_array);
+                    predators.get(i).executeRules(pred_boid_neighbours(boids, predators.get(i), 200), pred_neighbours(pred_array, predators.get(i), 25), obstacles);
+                    //predators.get(i).executeRules(pred_boid_neighbours(boids,predators.get(i),200),pred_array,obstacles);
+                    System.out.println("updating predator #" + i);
+                }
+
             }
+
             try {
                 Thread.sleep(14);
             } catch (InterruptedException e) {

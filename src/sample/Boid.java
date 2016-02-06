@@ -71,23 +71,16 @@ public class Boid {
 
         double goalX = 0;
         double goalY = 0;
-
         for (Boid b : boids){
-
             goalX = goalX + b.getx();
             goalY = goalY+ b.gety();
-        }//end Forloop
-
+        }
         goalX = goalX / (boids.length);
         goalY = goalY / (boids.length);
-
-
         ArrayList<Double> vector = new ArrayList<Double>(2);
         vector.add(this.getx()-goalX);
         vector.add(this.gety()-goalY);
-
-
-        return vector; //steerTowards(goalX,goalY);
+        return vector;
     }
 
     private ArrayList<Double> alignment(Boid[] boids){
@@ -174,8 +167,8 @@ public class Boid {
         ArrayList<Double> avoidPredators = avoidPredators(predators);
 
         int limit = 4;
-        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0)+ 1*avoidPredators.get(0);
-        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1)+ 1*avoidPredators.get(1);
+        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0) + avoidPredators.get(0);
+        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1) + avoidPredators.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
         if (new_total_velocity > limit){
             double ratio = limit/new_total_velocity;

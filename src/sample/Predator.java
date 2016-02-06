@@ -24,7 +24,7 @@ public class Predator {
         ArrayList<Double> separation = separation(predators);
         ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
 
-        int limit = 2;
+        int limit = 3;
         double new_x = this.getVelocityX() + 1*cohesion.get(0) + 10*collisionAvoidance.get(0) + 2*separation.get(0);
         double new_y = this.getVelocityY() + 1*cohesion.get(1) + 10*collisionAvoidance.get(1) + 2*separation.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));

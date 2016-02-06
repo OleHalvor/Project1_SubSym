@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
+import javax.lang.model.element.ElementVisitor;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +47,10 @@ public class Controller {
     private Button saveProfBtn;
     @FXML
     private ComboBox loadCombo;
+    @FXML
+    private CheckBox chkMoveBoid;
+    @FXML
+    private CheckBox chkMovePred;
 
     public void setSliderWeight1(double w){sliderWeight1.setValue(w);}
     public void setSliderWeight2(double w){sliderWeight2.setValue(w);}
@@ -74,10 +79,32 @@ public class Controller {
         sliderWeight2.setValue(Logic.weight2);
         sliderWeight3.setValue(Logic.weight3);
         radSlider.setValue(Logic.n_radius);
-
         resetBtn.setDisable(true);
         stopBtn.setDisable(true);
 
+        chkMoveBoid.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Logic.toggeMoveBoid();
+                if (Logic.getMovePred()){
+                    chkMovePred.setSelected(false);
+                    Logic.toggeMovePred();
+                }
+
+                Main.getBoidWindow().requestFocus();
+            }
+        });
+        chkMovePred.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Logic.toggeMovePred();
+                if (Logic.getMoveBoid()){
+                    chkMoveBoid.setSelected(false);
+                    Logic.toggeMoveBoid();
+                }
+                Main.getBoidWindow().requestFocus();
+            }
+        });
 
         startBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -87,6 +114,7 @@ public class Controller {
                 resetBtn.setDisable(false);
                 stopBtn.setDisable(false);
                 Main.startSim((Integer.parseInt(nBoidsField.getText())));
+                Main.getBoidWindow().requestFocus();
             }
         });
         //stopBtn.setVisible(false);
@@ -129,6 +157,7 @@ public class Controller {
             @Override
             public void handle(ActionEvent event) {
                 Logic.addPredator();
+                Main.getBoidWindow().requestFocus();
             }
         });
         remPredBtn.setOnAction(new EventHandler<ActionEvent>() {

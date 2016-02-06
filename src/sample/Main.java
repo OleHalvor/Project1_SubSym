@@ -2,9 +2,11 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -55,7 +57,9 @@ public class Main extends Application {
         boidWindow.setId("bw");
     }
 
-
+    public Pane getBoidWindow(){
+        return boidWindow;
+    }
     private static ArrayList<Circle> obstacleCircles = new ArrayList<Circle>();
     private static ArrayList<Circle> predatorCircles = new ArrayList<Circle>();
 
@@ -96,9 +100,15 @@ public class Main extends Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        logic = new Logic();
 
     }
     private static Line[] lines;
+    final static ArrayList<String> input = new ArrayList<String>();
+
+    public static ArrayList<String> getInput(){
+        return input;
+    }
 
     Logic logic = new Logic();
     public void startSim(int nBoids){
@@ -147,10 +157,13 @@ public class Main extends Application {
         }
 
 
+
         new AnimationTimer() {
             @Override
             public void handle(long now) {
                 //This is the animation loop. Called as often as possible up to the frequency of the monitor.
+                for (String s:input) System.out.println(s);
+
                 for (int i=0; i<boids.length; i++){
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
@@ -160,6 +173,7 @@ public class Main extends Application {
                     lines[i].setEndX((boids[i].getx()+2.5*boids[i].getVelocityX()));
                     lines[i].setEndY((boids[i].gety()+2.5*boids[i].getVelocityY()));
                 }
+
                 for (int i=0; i<predatorCircles.size(); i++){
                     predatorCircles.get(i).setLayoutX(Logic.getPredators().get(i).getX());
                     predatorCircles.get(i).setLayoutY(Logic.getPredators().get(i).getY());
@@ -185,8 +199,26 @@ public class Main extends Application {
             controller.setMainApp(this);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
+
             scene.getStylesheets().add("sample/styl.css");
 
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    String code = event.getCode().toString();
+                    if(!input.contains(code)){
+                        input.add(code);
+                    }
+
+                }
+            });
+            scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    String code = event.getCode().toString();
+                    input.remove( code );
+                }
+            });
 
             primaryStage.setScene(scene);
             primaryStage.show();
