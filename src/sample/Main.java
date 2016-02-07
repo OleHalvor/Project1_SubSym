@@ -92,12 +92,11 @@ public class Main extends Application {
         boids = new Boid[nBoids];
         final Random random = new Random();
 
-        for (int i=0; i<nBoids; i++) boids[i] = new Boid(0,0,random.nextInt(10)-5,random.nextInt(10)-5);  //Creating boids
-
         for (int i=0; i<nBoids; i++) {
-            boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),2,Color.web("Black", 1));
-            boidWindow.getChildren().add(boidsCircle[i]);
+            boids[i] = new Boid(0,0,random.nextInt(10)-5,random.nextInt(10)-5);
+            boidsCircle[i] = new Circle(0,0,2,Color.web("Black", 1));
             lines[i] = new Line();
+            boidWindow.getChildren().add(boidsCircle[i]);
             boidWindow.getChildren().add(lines[i]);
         }
 
