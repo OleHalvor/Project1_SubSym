@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -21,25 +20,22 @@ import java.util.Random;
 
 public class Main extends Application {
 
-    private Stage primaryStage;
+    private static Stage primaryStage;
+    private static BorderPane rootLayout;
     private static Pane boidWindow;
-    private Circle[] boidsCircle;
+    private static Circle[] boidsCircle;
     private static Boid[] boids;
-    private BorderPane rootLayout;
-    private Stage profileWindow;
+    private static Line[] lines;
+    private final static ArrayList<String> input = new ArrayList<String>();
+    private static ArrayList<Circle> obstacleCircles = new ArrayList<Circle>();
+    private static ArrayList<Circle> predatorCircles = new ArrayList<Circle>();
+    private Logic logic = new Logic();
+    private Controller controller;
+    private VBox root;
+    public static ArrayList<Profile> profiles = new ArrayList<Profile>();
 
-
-
-    public static double getBoidWindowWidth(){
-        return boidWindow.getWidth();
-    }
-
-    public static double getBoidWindowHeight(){
-        return boidWindow.getHeight();
-    }
-
-    public static Boid[] getBoids(){
-        return boids;
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
@@ -59,61 +55,36 @@ public class Main extends Application {
         boidWindow.setId("bw");
     }
 
-    public Pane getBoidWindow(){
-        return boidWindow;
-    }
-    private static ArrayList<Circle> obstacleCircles = new ArrayList<Circle>();
-    private static ArrayList<Circle> predatorCircles = new ArrayList<Circle>();
-
-    public static void addObstacleCircle(int x, int y, int radius){
-        Circle obstacle = new Circle(x,y,radius,Color.web("Blue", 1));
-        obstacleCircles.add(obstacle);
-        boidWindow.getChildren().add(obstacle);
-    }
-
-    public static void removeObstacles(){
-        for (Circle c: obstacleCircles){
-            c.setRadius(0);
-        }
-    }
-
-    public static void addPredatorCircle(int x, int y, int radius){
-        Circle predator = new Circle(0,0,radius,Color.web("Brown",1));
-        predatorCircles.add(predator);
-        boidWindow.getChildren().add(predator);
-    }
-
-    public static void removePredators(){
-        for (Circle c: predatorCircles){
-            c.setRadius(0);
-        }
-        predatorCircles = new ArrayList<Circle>();
-    }
-
-    public void stopSim(){
-        for (int i=0; i<lines.length; i++){
-            lines[i].setVisible(false);
-        }
-        for (int i=0; i<boidsCircle.length; i++){
-            boidsCircle[i].setVisible(false);
-        }
+    public void initRootLayout() {
         try {
-            logic.join();
-        } catch (InterruptedException e) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("sample.fxml"));
+            rootLayout = loader.load();
+            controller = loader.getController();
+            controller.setMainApp(this);
+            Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add("sample/styl.css");
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    String code = event.getCode().toString();
+                    if(!input.contains(code))input.add(code);
+                }
+            });
+            scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    String code = event.getCode().toString();
+                    input.remove( code );
+                }
+            });
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        logic = new Logic();
-
-    }
-    private static Line[] lines;
-    final static ArrayList<String> input = new ArrayList<String>();
-
-    public static ArrayList<String> getInput(){
-        return input;
     }
 
-
-    Logic logic = new Logic();
     public void startSim(int nBoids){
 
         Line line = new Line();
@@ -162,7 +133,6 @@ public class Main extends Application {
         boidWindow.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println(event.getButton().toString());
                 if (event.getButton().toString().equals("PRIMARY")){
                     Logic.addObstacle((int)event.getX(),(int)event.getY());
                 }
@@ -183,8 +153,8 @@ public class Main extends Application {
                     lines[i].setStartX(boids[i].getx());
                     lines[i].setStartY(boids[i].gety());
 
-                    lines[i].setEndX((boids[i].getx()+2.5*boids[i].getVelocityX()));
-                    lines[i].setEndY((boids[i].gety()+2.5*boids[i].getVelocityY()));
+                    lines[i].setEndX((boids[i].getx()+1.5*boids[i].getVelocityX()));
+                    lines[i].setEndY((boids[i].gety()+1.5*boids[i].getVelocityY()));
                 }
 
                 for (int i=0; i<predatorCircles.size(); i++){
@@ -197,86 +167,85 @@ public class Main extends Application {
         }.start();
     }
 
-    /**
-     * Initializes the root layout.
-     */
-    private Controller controller;
-    public void initRootLayout() {
+    public void stopSim(){
+        for (int i=0; i<lines.length; i++){
+            lines[i].setVisible(false);
+        }
+        for (int i=0; i<boidsCircle.length; i++){
+            boidsCircle[i].setVisible(false);
+        }
         try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("sample.fxml"));
-            rootLayout = (BorderPane) loader.load();
-            // Give the controller access to the main app.
-            controller = loader.getController();
-            controller.setMainApp(this);
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-
-            scene.getStylesheets().add("sample/styl.css");
-
-
-            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent event) {
-                    String code = event.getCode().toString();
-                    if(!input.contains(code)){
-                        input.add(code);
-                    }
-
-                }
-            });
-            scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent event) {
-                    String code = event.getCode().toString();
-                    input.remove( code );
-                }
-            });
-
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
+            logic.join();
+        } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+        logic = new Logic();
+
+    }
+
+    public static void addObstacleCircle(int x, int y, int radius){
+        Circle obstacle = new Circle(x,y,radius,Color.web("Blue", 1));
+        obstacleCircles.add(obstacle);
+        boidWindow.getChildren().add(obstacle);
+    }
+
+    public static void removeObstacles(){
+        for (Circle c: obstacleCircles){
+            c.setRadius(0);
         }
     }
 
-    /**
-     * Returns the main stage.
-     * @return
-     */
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    public static void addPredatorCircle(int x, int y, int radius){
+        Circle predator = new Circle(0,0,radius,Color.web("Brown",1));
+        predatorCircles.add(predator);
+        boidWindow.getChildren().add(predator);
     }
 
-    public void updateCombo(){
-        controller.profiles = Main.profiles;
-        controller.updateCombo();
+    public static void removePredators(){
+        for (Circle c: predatorCircles){
+            c.setRadius(0);
+        }
+        predatorCircles = new ArrayList<Circle>();
     }
 
-    VBox root;
-    public static ArrayList<Profile> profiles = new ArrayList<Profile>();
+    public static Boid[] getBoids(){
+        return boids;
+    }
+
+    public static Pane getBoidWindow(){
+        return boidWindow;
+    }
+
+    public static double getBoidWindowWidth(){
+        return boidWindow.getWidth();
+    }
+
+    public static double getBoidWindowHeight(){
+        return boidWindow.getHeight();
+    }
+
+    public static ArrayList<String> getInput(){
+        return input;
+    }
+
     public static ArrayList<Profile> getProfiles(){
         return profiles;
     }
+
     public static void addProfile(Profile profile){
         profiles.add(profile);
     }
+
     public void loadProfile(){
-
-
+        //Not in use. Comobox replaced this window
         try {
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("loadWeights.fxml"));
-            root = (VBox) loader.load();
-            // Give the controller access to the main app.
+            root = loader.load();
             LoadController controller2 = loader.getController();
             controller2.profiles = profiles;
             controller2.setMainApp(this);
             loader.setController(controller);
-            // Show the scene containing the root layout.
-
             Stage stage = new Stage();
             stage.setTitle("Load Profile");
             stage.setScene(new Scene(root));
@@ -288,31 +257,29 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
     public void saveProfile(){
         try {
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("saveWeights.fxml"));
-            root = (VBox) loader.load();
-            // Give the controller access to the main app.
+            root = loader.load();
             SaveController controller = loader.getController();
             controller.setMainApp(this);
             loader.setController(controller);
-            // Show the scene containing the root layout.
-
             Stage stage = new Stage();
             stage.setTitle("Save Profile");
             stage.setScene(new Scene(root));
             stage.setX(0);
             stage.setY(150);
             stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void updateCombo(){
+        controller.profiles = Main.profiles;
+        controller.updateCombo();
     }
 
 }

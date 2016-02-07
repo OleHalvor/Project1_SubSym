@@ -4,6 +4,7 @@ package sample;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ole on 22.01.2016.
@@ -192,7 +193,9 @@ public class Logic extends Thread {
     public static void updateBoids() {
         ArrayList<Boid[]> neighbours = new ArrayList<Boid[]>();
         Boid[] boids = Main.getBoids();
+        long startTime, newTime;
         while (true) {
+            startTime = System.nanoTime();
             for (int i = 0; i < boids.length; i++) {
                 if(i==0&&Main.getInput().size()!=0 && moveBoid) {
                     ArrayList<String> inp = Main.getInput();
@@ -201,19 +204,17 @@ public class Logic extends Thread {
                     if (inp.contains("S")) boids[i].setVelocityY(boids[i].getVelocityY() + 5);
                     if (inp.contains("D")) boids[i].setVelocityX(boids[i].getVelocityX() + 5);
                 }
-                    neighbours.add(neighbours(boids, boids[i], n_radius));
-                    neighbours.add(neighbours(boids, boids[i], n_radius / 20));
-                    neighbours.add(neighbours(boids, boids[i], n_radius / 2));
-                    Predator[] pred_array = new Predator[predators.size()];
-                    pred_array = predators.toArray(pred_array);
-                    //boids[i].executeRules(neighbours, weight1, weight2, weight3);
-                    Obstacle[] o_array = new Obstacle[obstacles.size()];
-                    o_array = obstacles.toArray(o_array);
+                neighbours.add(neighbours(boids, boids[i], n_radius));
+                neighbours.add(neighbours(boids, boids[i], n_radius / 20));
+                neighbours.add(neighbours(boids, boids[i], n_radius / 2));
 
+                Predator[] pred_array = new Predator[predators.size()];
+                pred_array = predators.toArray(pred_array);
+                Obstacle[] o_array = new Obstacle[obstacles.size()];
+                o_array = obstacles.toArray(o_array);
 
-                    boids[i].executeRules(neighbours, o_array, (pred_neighbours(pred_array, boids[i], n_radius / 8)), weight1, weight2, weight3, weight4);
-                    neighbours = new ArrayList<Boid[]>();
-
+                boids[i].executeRules(neighbours, o_array, (pred_neighbours(pred_array, boids[i], n_radius / 8)), weight1, weight2, weight3, weight4);
+                neighbours = new ArrayList<Boid[]>();
             }
             for (int i=0; i<predators.size(); i++){
                 if(i==0&&Main.getInput().size()!=0 && movePred) {
@@ -227,17 +228,16 @@ public class Logic extends Thread {
                     Predator[] pred_array = new Predator[predators.size()];
                     pred_array = predators.toArray(pred_array);
                     predators.get(i).executeRules(pred_boid_neighbours(boids, predators.get(i), 200), pred_neighbours(pred_array, predators.get(i), 25), obstacles);
-                    //predators.get(i).executeRules(pred_boid_neighbours(boids,predators.get(i),200),pred_array,obstacles);
-                    System.out.println("updating predator #" + i);
                 }
-
             }
-
+            newTime = System.nanoTime() - startTime;
+            if (newTime<16700000)
             try {
-                Thread.sleep(14);
+                Thread.sleep((TimeUnit.MILLISECONDS.convert(16700000-newTime,TimeUnit.NANOSECONDS)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
     }
 
