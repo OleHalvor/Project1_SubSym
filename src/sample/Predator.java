@@ -101,14 +101,12 @@ public class Predator {
         for (Boid b : boids){
             goalX = goalX + b.getx();
             goalY = goalY+ b.gety();
-        }//end Forloop
+        }
 
         goalX = goalX / (boids.length);
         goalY = goalY / (boids.length);
 
-
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        System.out.println("predator X "+getX());
         vector.add(goalX-this.getX());
         vector.add(goalY-this.getY());
 

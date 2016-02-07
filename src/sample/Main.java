@@ -52,7 +52,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         rootLayout.setCenter(boidWindow);
-        boidWindow.setId("bw");
+
     }
 
     public void initRootLayout() {
