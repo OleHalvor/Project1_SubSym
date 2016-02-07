@@ -29,9 +29,9 @@ public class Main extends Application {
     private final static ArrayList<String> input = new ArrayList<String>();
     private static ArrayList<Circle> obstacleCircles = new ArrayList<Circle>();
     private static ArrayList<Circle> predatorCircles = new ArrayList<Circle>();
-    private Logic logic = new Logic();
-    private Controller controller;
-    private VBox root;
+    private static Logic logic = new Logic();
+    private static Controller controller;
+    private static VBox root;
     public static ArrayList<Profile> profiles = new ArrayList<Profile>();
 
     public static void main(String[] args) {
@@ -87,42 +87,22 @@ public class Main extends Application {
 
     public void startSim(int nBoids){
 
-        Line line = new Line();
-        line.setStartX(100.0);
-        line.setStartY(100.0);
-        line.setEndX(100.0);
-        line.setEndY(200.0);
-        //boidWindow.getChildren().add(line);
-
-
         lines = new Line[nBoids];
         boidsCircle = new Circle[nBoids];
         boids = new Boid[nBoids];
         final Random random = new Random();
-        System.out.println("BOIDWINDOW W AND H: "+boidWindow.getWidth()+" "+ boidWindow.getHeight());
 
-        for (int i=0; i<nBoids; i++) {
-            double width = random.nextDouble()*boidWindow.getWidth();
-            int w = (int) width;
-            double height = random.nextDouble()*boidWindow.getHeight();
-            int h = (int) height;
-            boids[i] = new Boid(0,0,random.nextInt(10)-5,random.nextInt(10)-5);
-
-        }
+        for (int i=0; i<nBoids; i++) boids[i] = new Boid(0,0,random.nextInt(10)-5,random.nextInt(10)-5);  //Creating boids
 
         for (int i=0; i<nBoids; i++) {
             boidsCircle[i] = new Circle(boids[i].getx(),boids[i].gety(),2,Color.web("Black", 1));
             boidWindow.getChildren().add(boidsCircle[i]);
-            //lines[i] = new Line(boids[i].getx(),boids[i].gety(),boids[i].getVelocityX(),boids[i].getVelocityY());
             lines[i] = new Line();
             boidWindow.getChildren().add(lines[i]);
-
-
         }
 
         Logic logic = new Logic();
         logic.setDaemon(true);
-        System.out.println("Starting boids");
         logic.start();
 
         for (int i=0; i<boids.length; i++){
@@ -139,30 +119,21 @@ public class Main extends Application {
             }
         });
 
-
-
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //This is the animation loop. Called as often as possible up to the frequency of the monitor.
-                for (String s:input) System.out.println(s);
-
                 for (int i=0; i<boids.length; i++){
                     boidsCircle[i].setLayoutX(boids[i].getx());
                     boidsCircle[i].setLayoutY(boids[i].gety());
                     lines[i].setStartX(boids[i].getx());
                     lines[i].setStartY(boids[i].gety());
-
                     lines[i].setEndX((boids[i].getx()+1.5*boids[i].getVelocityX()));
                     lines[i].setEndY((boids[i].gety()+1.5*boids[i].getVelocityY()));
                 }
-
                 for (int i=0; i<predatorCircles.size(); i++){
                     predatorCircles.get(i).setLayoutX(Logic.getPredators().get(i).getX());
                     predatorCircles.get(i).setLayoutY(Logic.getPredators().get(i).getY());
                 }
-
-
             }
         }.start();
     }
