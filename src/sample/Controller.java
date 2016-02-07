@@ -52,26 +52,18 @@ public class Controller {
     @FXML
     private CheckBox chkMovePred;
 
+    ArrayList<Profile> profiles = new ArrayList<Profile>();
+    private Main Main;
+
     public void setSliderWeight1(double w){sliderWeight1.setValue(w);}
     public void setSliderWeight2(double w){sliderWeight2.setValue(w);}
     public void setSliderWeight3(double w){sliderWeight3.setValue(w);}
     public void setRadSlider(double r){radSlider.setValue(r);}
 
-    // Reference to the main application.
-    private Main Main;
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
+
     public Controller() {
     }
-
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    ArrayList<Profile> profiles = new ArrayList<Profile>();
 
     @FXML
     private void initialize() {
@@ -237,6 +229,7 @@ public class Controller {
             }
         });
     }
+
     public void updateCombo(){
         loadCombo.getItems().removeAll();
         loadCombo.getItems().clear();

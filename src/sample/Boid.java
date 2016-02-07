@@ -19,6 +19,45 @@ public class Boid {
         this.alive = true;
     }
 
+    public void executeRules(ArrayList<Boid[]> neighbours, Obstacle[] obstacles, Predator[] predators, double w1, double w2, double w3, double w4){
+        //The rules now use different arrays of boids to calculate positions
+        ArrayList<Double> cohesion = cohesion(neighbours.get(0));
+        ArrayList<Double> separation = separation(neighbours.get(1));
+        ArrayList<Double> alignment = alignment(neighbours.get(2));
+        ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
+        ArrayList<Double> avoidPredators = avoidPredators(predators);
+
+        int limit = 4;
+        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0) + avoidPredators.get(0);
+        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1) + avoidPredators.get(1);
+        double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
+        if (new_total_velocity > limit){
+            double ratio = limit/new_total_velocity;
+            new_x = new_x * ratio;
+            new_y = new_y * ratio;
+        }
+        this.setVelocityX(new_x);
+        this.setVelocityY(new_y);
+
+        this.setX( (int)( this.getx() + (this.getVelocityX()) ) );
+        this.setY( (int)( this.gety() + (this.getVelocityY()) ) );
+        double w = Main.getBoidWindowWidth();
+        double h = Main.getBoidWindowHeight();
+        if (this.getx() >= w){
+            this.setX(0);
+        }
+        else if (this.getx() <=0) {
+            this.setX((int)w);
+        }
+        if (this.gety() >= h){
+            this.setY(0);
+        }
+        else if (this.gety() <= 0){
+            this.setY((int)h);
+        }
+
+    }
+
     private ArrayList<Double> avoidPredators(Predator[] predators){
         double goalX = 0;
         double goalY = 0;
@@ -156,45 +195,6 @@ public class Boid {
         vector.add(avoidanceX);
         vector.add(avoidanceY);
         return vector;
-    }
-
-    public void executeRules(ArrayList<Boid[]> neighbours, Obstacle[] obstacles, Predator[] predators, double w1, double w2, double w3, double w4){
-        //The rules now use different arrays of boids to calculate positions
-        ArrayList<Double> cohesion = cohesion(neighbours.get(0));
-        ArrayList<Double> separation = separation(neighbours.get(1));
-        ArrayList<Double> alignment = alignment(neighbours.get(2));
-        ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
-        ArrayList<Double> avoidPredators = avoidPredators(predators);
-
-        int limit = 4;
-        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0) + avoidPredators.get(0);
-        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1) + avoidPredators.get(1);
-        double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
-        if (new_total_velocity > limit){
-            double ratio = limit/new_total_velocity;
-            new_x = new_x * ratio;
-            new_y = new_y * ratio;
-        }
-        this.setVelocityX(new_x);
-        this.setVelocityY(new_y);
-
-        this.setX( (int)( this.getx() + (this.getVelocityX()) ) );
-        this.setY( (int)( this.gety() + (this.getVelocityY()) ) );
-        double w = Main.getBoidWindowWidth();
-        double h = Main.getBoidWindowHeight();
-        if (this.getx() >= w){
-            this.setX(0);
-        }
-        else if (this.getx() <=0) {
-            this.setX((int)w);
-        }
-        if (this.gety() >= h){
-            this.setY(0);
-        }
-        else if (this.gety() <= 0){
-            this.setY((int)h);
-        }
-
     }
 
     public int getx(){return x;}

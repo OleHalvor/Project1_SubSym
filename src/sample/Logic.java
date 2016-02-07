@@ -14,6 +14,7 @@ public class Logic extends Thread {
     public static double weight1 = 0.0027;
     public static double weight2 = 0.2053;
     public static double weight3 = 0.2;
+    public static double weight4 = 0.3;
     public static int n_radius = 300;
     private static boolean movePred = true;
     private static boolean moveBoid = false;
