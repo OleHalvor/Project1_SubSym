@@ -98,16 +98,13 @@ public class Main extends Application {
             lines[i] = new Line();
             boidWindow.getChildren().add(boidsCircle[i]);
             boidWindow.getChildren().add(lines[i]);
+            boids[i].setX(random.nextInt((int)boidWindow.getWidth()));
+            boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
         }
 
         Logic logic = new Logic();
         logic.setDaemon(true);
         logic.start();
-
-        for (int i=0; i<boids.length; i++){
-            boids[i].setX(random.nextInt((int)boidWindow.getWidth()));
-            boids[i].setY(random.nextInt((int)boidWindow.getHeight()));
-        }
 
         boidWindow.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
