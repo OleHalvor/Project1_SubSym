@@ -16,6 +16,8 @@
    <top>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
+            <TextField fx:id="txtPredSpeed" minWidth="69.0" prefHeight="25.0" />
+            <TextField fx:id="txtBoidSpeed" />
             <Button fx:id="stopBtn" mnemonicParsing="false" text="Stop" />
             <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" />
             <Button fx:id="startBtn" mnemonicParsing="false" text="Start" />

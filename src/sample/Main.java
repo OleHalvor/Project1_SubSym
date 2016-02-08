@@ -118,13 +118,17 @@ public class Main extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
+                int boidX;
+                int boidY;
                 for (int i=0; i<boids.length; i++){
-                    boidsCircle[i].setLayoutX(boids[i].getx());
-                    boidsCircle[i].setLayoutY(boids[i].gety());
-                    lines[i].setStartX(boids[i].getx());
-                    lines[i].setStartY(boids[i].gety());
-                    lines[i].setEndX((boids[i].getx()+1.5*boids[i].getVelocityX()));
-                    lines[i].setEndY((boids[i].gety()+1.5*boids[i].getVelocityY()));
+                    boidX = boids[i].getx();
+                    boidY = boids[i].gety();
+                    boidsCircle[i].setLayoutX(boidX);
+                    boidsCircle[i].setLayoutY(boidY);
+                    lines[i].setStartX(boidX);
+                    lines[i].setStartY(boidY);
+                    lines[i].setEndX((boidX+1.5*boids[i].getVelocityX()));
+                    lines[i].setEndY((boidY+1.5*boids[i].getVelocityY()));
                 }
                 for (int i=0; i<predatorCircles.size(); i++){
                     predatorCircles.get(i).setLayoutX(Logic.getPredators().get(i).getX());
@@ -132,6 +136,12 @@ public class Main extends Application {
                 }
             }
         }.start();
+    }
+
+    public static void killBoid(int i){
+        boidsCircle[i].setVisible(false);
+        lines[i].setVisible(false);
+        boids[i].setAlive(false);
     }
 
     public void stopSim(){

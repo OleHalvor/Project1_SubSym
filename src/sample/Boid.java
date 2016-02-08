@@ -19,8 +19,13 @@ public class Boid {
         this.alive = true;
     }
 
-    public void executeRules(ArrayList<Boid[]> neighbours, Obstacle[] obstacles, Predator[] predators, double w1, double w2, double w3, double w4){
+    public boolean getAlive(){return alive;}
+
+    public void setAlive(Boolean alive){this.alive = alive;}
+
+    public boolean executeRules(ArrayList<Boid[]> neighbours, Obstacle[] obstacles, Predator[] predators, double w1, double w2, double w3, double w4){
         //The rules now use different arrays of boids to calculate positions
+        if (amIDead(predators))return false;
         ArrayList<Double> cohesion = cohesion(neighbours.get(0));
         ArrayList<Double> separation = separation(neighbours.get(1));
         ArrayList<Double> alignment = alignment(neighbours.get(2));
@@ -55,7 +60,17 @@ public class Boid {
         else if (this.gety() <= 0){
             this.setY((int)h);
         }
+        return true;
+    }
 
+    private boolean amIDead(Predator[] predators){
+        for (Predator p: predators){
+            if (Logic.pred_distance(p,this)<15){
+                return true;
+
+            }
+        }
+        return false;
     }
 
     private ArrayList<Double> avoidPredators(Predator[] predators){

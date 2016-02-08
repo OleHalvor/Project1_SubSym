@@ -17,6 +17,8 @@ public class Predator {
         this.velocityY = velocityY;
     }
 
+
+
     public void executeRules(Boid[] boids, Predator[] predators, ArrayList<Obstacle> obstaclesArr){
         Obstacle[] obstacles = new Obstacle[obstaclesArr.size()];
         obstacles = obstaclesArr.toArray(obstacles);
@@ -24,7 +26,7 @@ public class Predator {
         ArrayList<Double> separation = separation(predators);
         ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
 
-        int limit = 3;
+        int limit = 4;
         double new_x = this.getVelocityX() + 1*cohesion.get(0) + 10*collisionAvoidance.get(0) + 2*separation.get(0);
         double new_y = this.getVelocityY() + 1*cohesion.get(1) + 10*collisionAvoidance.get(1) + 2*separation.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
@@ -94,22 +96,16 @@ public class Predator {
             vector.add(0.0);
             return vector;
         }
-
-        double goalX = 0;
-        double goalY = 0;
-
-        for (Boid b : boids){
-            goalX = goalX + b.getx();
-            goalY = goalY+ b.gety();
+        Boid best_boid = boids[0];
+        for (Boid b: boids){
+            if (Logic.pred_distance(this,b)<Logic.pred_distance(this,best_boid)){
+                best_boid = b;
+            }
         }
 
-        goalX = goalX / (boids.length);
-        goalY = goalY / (boids.length);
-
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(goalX-this.getX());
-        vector.add(goalY-this.getY());
-
+        vector.add((double)best_boid.getx()-this.getX());
+        vector.add((double)best_boid.gety()-this.getY());
 
         return vector; //steerTowards(goalX,goalY);
     }

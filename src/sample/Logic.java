@@ -47,7 +47,9 @@ public class Logic extends Thread {
                 Obstacle[] o_array = new Obstacle[obstacles.size()];
                 o_array = obstacles.toArray(o_array);
 
-                boids[i].executeRules(neighbours, o_array, (pred_neighbours(pred_array, boids[i], n_radius / 8)), weight1, weight2, weight3, weight4);
+                if (!boids[i].executeRules(neighbours, o_array, (pred_neighbours(pred_array, boids[i], n_radius / 8)), weight1, weight2, weight3, weight4)){
+                    Main.killBoid(i);
+                }
                 neighbours = new ArrayList<Boid[]>();
             }
             for (int i=0; i<predators.size(); i++){
@@ -61,7 +63,7 @@ public class Logic extends Thread {
                 else {
                     Predator[] pred_array = new Predator[predators.size()];
                     pred_array = predators.toArray(pred_array);
-                    predators.get(i).executeRules(pred_boid_neighbours(boids, predators.get(i), 200), pred_neighbours(pred_array, predators.get(i), 25), obstacles);
+                    predators.get(i).executeRules(pred_boid_neighbours(boids, predators.get(i), 600), pred_neighbours(pred_array, predators.get(i), 25), obstacles);
                 }
             }
             newTime = System.nanoTime() - startTime;
@@ -178,7 +180,7 @@ public class Logic extends Thread {
     public static Boid[] neighbours( Boid[] boids, Boid boid, int radius){
         ArrayList<Boid> best = new ArrayList<Boid>();
         for (Boid b: boids){
-            if (boid_distance(b,boid) < radius){
+            if (boid_distance(b,boid) < radius && b.getAlive()){
                 best.add(b);
             }
         }
@@ -211,7 +213,7 @@ public class Logic extends Thread {
     public static Boid[] pred_boid_neighbours( Boid[] boids, Predator pred, int radius){
         ArrayList<Boid> best = new ArrayList<Boid>();
         for (Boid b: boids){
-            if (pred_distance(pred,b) < radius){
+            if (pred_distance(pred,b) < radius &&b.getAlive()){
                 best.add(b);
             }
         }
@@ -222,7 +224,7 @@ public class Logic extends Thread {
     private static double boid_distance(Boid b1, Boid b2){
         return Math.abs((Math.sqrt(Math.pow((b2.getx()-b1.getx()), 2) + Math.pow(b2.gety()-b1.gety(),2))));
     }
-    private static double pred_distance(Predator p, Boid b2){
+    public static double pred_distance(Predator p, Boid b2){
         return Math.abs((Math.sqrt(Math.pow((b2.getx()-p.getX()), 2) + Math.pow(b2.gety()-p.getY(),2))));
     }
     private static double pred_distance(Predator p, Predator b2){
