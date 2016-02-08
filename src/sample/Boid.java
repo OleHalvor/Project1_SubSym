@@ -32,10 +32,21 @@ public class Boid {
         ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
         ArrayList<Double> avoidPredators = avoidPredators(predators);
 
-        int limit = 4;
-        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0) + avoidPredators.get(0);
-        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1) + avoidPredators.get(1);
+        double limit = 3;
+        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0);
+        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
+        if (new_total_velocity > limit){
+            double ratio = limit/new_total_velocity;
+            new_x = new_x * ratio;
+            new_y = new_y * ratio;
+        }
+        this.setVelocityX(new_x);
+        this.setVelocityY(new_y);
+        limit = limit+0;
+        new_x = this.getVelocityX() + avoidPredators.get(0);
+        new_y = this.getVelocityY() + avoidPredators.get(1);
+        new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
         if (new_total_velocity > limit){
             double ratio = limit/new_total_velocity;
             new_x = new_x * ratio;
@@ -65,7 +76,7 @@ public class Boid {
 
     private boolean amIDead(Predator[] predators){
         for (Predator p: predators){
-            if (Logic.pred_distance(p,this)<15){
+            if (Logic.pred_distance(p,this)<10){
                 return true;
 
             }
