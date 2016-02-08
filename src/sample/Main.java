@@ -118,8 +118,8 @@ public class Main extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                int boidX;
-                int boidY;
+                double boidX;
+                double boidY;
                 for (int i=0; i<boids.length; i++){
                     boidX = boids[i].getx();
                     boidY = boids[i].gety();

@@ -32,9 +32,9 @@ public class Boid {
         ArrayList<Double> collisionAvoidance = collisionAvoidance(obstacles);
         ArrayList<Double> avoidPredators = avoidPredators(predators);
 
-        double limit = 3;
-        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0);
-        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1);
+        double limit = 4;
+        double new_x = this.getVelocityX() + w1*cohesion.get(0) + w2*separation.get(0) + w3*alignment.get(0) + w4*collisionAvoidance.get(0) +2*avoidPredators.get(0);
+        double new_y = this.getVelocityY() + w1*cohesion.get(1) + w2*separation.get(1) + w3*alignment.get(1) + w4*collisionAvoidance.get(1) +2*avoidPredators.get(1);
         double new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
         if (new_total_velocity > limit){
             double ratio = limit/new_total_velocity;
@@ -43,17 +43,7 @@ public class Boid {
         }
         this.setVelocityX(new_x);
         this.setVelocityY(new_y);
-        limit = limit+0;
-        new_x = this.getVelocityX() + avoidPredators.get(0);
-        new_y = this.getVelocityY() + avoidPredators.get(1);
-        new_total_velocity = Math.abs(Math.sqrt(Math.pow(new_x,2)+Math.pow(new_y,2)));
-        if (new_total_velocity > limit){
-            double ratio = limit/new_total_velocity;
-            new_x = new_x * ratio;
-            new_y = new_y * ratio;
-        }
-        this.setVelocityX(new_x);
-        this.setVelocityY(new_y);
+
 
         this.setX( (int)( this.getx() + (this.getVelocityX()) ) );
         this.setY( (int)( this.gety() + (this.getVelocityY()) ) );
@@ -94,18 +84,21 @@ public class Boid {
             return vector;
         }
 
+        Predator closest = predators[0];
         for (Predator p : predators){
-
+            if (Logic.pred_distance(closest,this)>Logic.pred_distance(p,this)){
+                closest = p;
+            }
             goalX = goalX + p.getX();
             goalY = goalY+ p.getY();
         }
-
+        double dist = Logic.pred_distance(closest,this);
         goalX = goalX / (predators.length);
         goalY = goalY / (predators.length);
 
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(this.getx()-goalX);
-        vector.add(this.gety()-goalY);
+        vector.add((this.getx()-goalX)/dist);
+        vector.add((this.gety()-goalY)/dist);
 
         return vector;
     }
@@ -172,10 +165,7 @@ public class Boid {
     private double distance(double x1, double y1, double x2, double y2){return Math.sqrt( Math.pow(x1-x2,2)+Math.pow(y1-y2,2) );}
 
     private Boolean lineIntersectsCircle(ArrayList<Double> ahead, ArrayList<Double> ahead2, Obstacle o){
-        if(distance(o.getX(), o.getY(), ahead.get(0), ahead.get(1)) <= o.getRadius() || distance(o.getX(), o.getY(), ahead2.get(0), ahead2.get(1)) <= o.getRadius()){
-            return true;
-        }
-        return false;
+        return (distance(o.getX(), o.getY(), ahead.get(0), ahead.get(1)) <= o.getRadius() || distance(o.getX(), o.getY(), ahead2.get(0), ahead2.get(1)) <= o.getRadius());
     }
 
     private Obstacle findClosestObstacle(ArrayList<Double> ahead, ArrayList<Double> ahead2, Obstacle[] obstacles){
