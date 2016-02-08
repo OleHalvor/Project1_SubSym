@@ -187,10 +187,6 @@ public class Predator {
             avoidanceX = ahead.get(0) - closest.getX();
             avoidanceY = ahead.get(1) - closest.getY();
         }
-        else {
-            avoidanceX = 0;
-            avoidanceY = 0;
-        }
 
         ArrayList<Double> vector = new ArrayList<Double>();
         vector.add(avoidanceX);

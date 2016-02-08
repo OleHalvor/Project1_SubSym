@@ -126,18 +126,39 @@ public class Boid {
     }
 
     private ArrayList<Double> separation(Boid[] boids){
-
+        if(boids.length==0){
+            ArrayList<Double> vector = new ArrayList<Double>(2);
+            vector.add(0.0);
+            vector.add(0.0);
+            return vector;
+        }
         double goalX = 0;
         double goalY = 0;
-        for (Boid b : boids){
-            goalX = goalX + b.getx();
-            goalY = goalY+ b.gety();
+
+        Boid closest=boids[0];
+        for (Boid p : boids){
+            if (Logic.boid_distance(closest,this)>Logic.boid_distance(p,this)){
+                if (!this.equals(p))
+                closest = p;
+            }
+            goalX = goalX + p.getx();
+            goalY = goalY+ p.gety();
         }
+
+        double dist = Logic.boid_distance(closest,this);
+
         goalX = goalX / (boids.length);
         goalY = goalY / (boids.length);
+
         ArrayList<Double> vector = new ArrayList<Double>(2);
-        vector.add(this.getx()-goalX);
-        vector.add(this.gety()-goalY);
+        /*if (dist!=0) {
+            System.out.println("dist"+dist);
+            vector.add((this.getx() - goalX) / dist);
+            vector.add((this.gety() - goalY) / dist);
+        }*/
+        vector.add((this.getx() - goalX));
+        vector.add((this.gety() - goalY));
+
         return vector;
     }
 
@@ -185,7 +206,7 @@ public class Boid {
 
     private ArrayList<Double> collisionAvoidance(Obstacle[] obstacles){
         double length = Math.sqrt( Math.pow(this.getVelocityX(),2)+Math.pow(this.getVelocityY(),2) );
-        int maxSeeAhead = 20;
+        int maxSeeAhead = 30;
         ArrayList<Double> ahead = new ArrayList<Double>();
         ArrayList<Double> ahead2 = new ArrayList<Double>();
         ahead.add( this.getx()+( (this.getVelocityX()/length)*maxSeeAhead ) );
@@ -199,13 +220,11 @@ public class Boid {
         double avoidanceY = 0;
 
         if (closest != null){
-            avoidanceX = ahead.get(0) - closest.getX();
-            avoidanceY = ahead.get(1) - closest.getY();
+            double dist = Math.abs((Math.sqrt(Math.pow((closest.getX()-this.getx()), 2) + Math.pow(closest.getY()-this.gety(),2))));
+            avoidanceX = (ahead.get(0) - closest.getX())/dist;
+            avoidanceY = (ahead.get(1) - closest.getY())/dist;
         }
-        else {
-            avoidanceX = 0;
-            avoidanceY = 0;
-        }
+
 
         ArrayList<Double> vector = new ArrayList<Double>();
         vector.add(avoidanceX);

@@ -14,7 +14,7 @@ public class Logic extends Thread {
     public static double weight1 = 0.0027;
     public static double weight2 = 0.2053;
     public static double weight3 = 0.2;
-    public static double weight4 = 0.3;
+    public static double weight4 = 10;
     public static int n_radius = 300;
     private static boolean movePred = true;
     private static boolean moveBoid = false;
@@ -39,7 +39,7 @@ public class Logic extends Thread {
                     if (inp.contains("D")) boids[i].setVelocityX(boids[i].getVelocityX() + 5);
                 }
                 neighbours.add(neighbours(boids, boids[i], n_radius));
-                neighbours.add(neighbours(boids, boids[i], n_radius / 20));
+                neighbours.add(neighbours(boids, boids[i], n_radius / 18));
                 neighbours.add(neighbours(boids, boids[i], n_radius / 2));
 
                 Predator[] pred_array = new Predator[predators.size()];
@@ -59,6 +59,20 @@ public class Logic extends Thread {
                     if (inp.contains("A")) predators.get(i).setX(predators.get(i).getX() - 5);
                     if (inp.contains("S")) predators.get(i).setY(predators.get(i).getY() + 5);
                     if (inp.contains("D")) predators.get(i).setX(predators.get(i).getX() + 5);
+                    double w = Main.getBoidWindowWidth();
+                    double h = Main.getBoidWindowHeight();
+                    if (predators.get(i).getX() >= w){
+                        predators.get(i).setX(0);
+                    }
+                    else if (predators.get(i).getX() <=0) {
+                        predators.get(i).setX((int)w);
+                    }
+                    if (predators.get(i).getY() >= h){
+                        predators.get(i).setY(0);
+                    }
+                    else if (predators.get(i).getY() <= 0){
+                        predators.get(i).setY((int)h);
+                    }
                 }
                 else {
                     Predator[] pred_array = new Predator[predators.size()];
@@ -221,7 +235,7 @@ public class Logic extends Thread {
         best_boids = best.toArray(best_boids);
         return best_boids;
     }
-    private static double boid_distance(Boid b1, Boid b2){
+    public static double boid_distance(Boid b1, Boid b2){
         return Math.abs((Math.sqrt(Math.pow((b2.getx()-b1.getx()), 2) + Math.pow(b2.gety()-b1.gety(),2))));
     }
     public static double pred_distance(Predator p, Boid b2){
