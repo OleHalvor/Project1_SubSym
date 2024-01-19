@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="211.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoadController">
+   <children>
+      <ComboBox fx:id="profCombo" prefHeight="25.0" prefWidth="353.0" promptText="Profiles" />
+      <Label text="Cohesion">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin></Label>
+      <TextField fx:id="cohesionField" disable="true" editable="false" />
+      <Label text="Separation" />
+      <TextField fx:id="separationField" disable="true" editable="false" />
+      <Label text="Alignment" />
+      <TextField fx:id="alignmentField" disable="true" editable="false" />
+      <Label text="Radius" />
+      <TextField fx:id="radiusField" disable="true" editable="false" />
+   </children>
+</VBox>

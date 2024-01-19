@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="283.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SaveController">
+   <children>
+      <Label text="Name:" />
+      <TextField fx:id="nameField" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cohesion" />
+      <TextField fx:id="cohesionField" disable="false" editable="true" text="1" />
+      <Label text="Separation" />
+      <TextField fx:id="separationField" disable="false" editable="true" text="1" />
+      <Label text="Alignment" />
+      <TextField fx:id="alignmentField" disable="false" editable="true" text="1" />
+      <Label text="Radius" />
+      <TextField fx:id="radiusField" disable="false" editable="true" text="1" />
+      <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="283.0" text="Save Profile">
+         <VBox.margin>
+            <Insets top="40.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
